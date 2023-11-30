@@ -1,6 +1,7 @@
-import 'package:cyberbee_web/constants/images.dart';
-import 'package:cyberbee_web/presentation/widgets/custom_scaffold.dart';
+import 'package:cyberbee_web/constants.dart';
+import 'package:cyberbee_web/presentation/main/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,21 +9,18 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.transparent,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
-        ),
-        useMaterial3: true,
+      title: 'Flutter Admin Panel',
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: bgColor,
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+            .apply(bodyColor: Colors.white),
+        canvasColor: secondaryColor,
       ),
-      home:  MyCoustomScaffold(child: Container(),),
+      home:const MainScreen(),
     );
   }
 }
