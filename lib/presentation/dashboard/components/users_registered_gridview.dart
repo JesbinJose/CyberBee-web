@@ -1,4 +1,5 @@
 import 'package:cyberbee_web/constants.dart';
+import 'package:cyberbee_web/presentation/dashboard/components/users_show_count_widget.dart';
 import 'package:flutter/material.dart';
 
 class UserRegiseteredGridView extends StatelessWidget {
@@ -13,6 +14,7 @@ class UserRegiseteredGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List userTypes = [...UserType.values];
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -21,9 +23,11 @@ class UserRegiseteredGridView extends StatelessWidget {
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: defaultPadding,
         mainAxisSpacing: defaultPadding,
-        childAspectRatio: childAspectRatio,
+        childAspectRatio: 3,
       ),
-      itemBuilder: (context, index) => Container(color: secondaryColor,),
+      itemBuilder: (context, index) => ShowUserCount(
+        type: userTypes[index],
+      ),
     );
   }
 }
