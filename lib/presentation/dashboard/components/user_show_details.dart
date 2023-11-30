@@ -24,16 +24,22 @@ class UsersDashboardDetails extends StatelessWidget {
           ],
         ),
         const SizedBox(height: defaultPadding),
-        SizedBox(
-          height: 100,
-          child: Responsive(
-            mobile: UserRegiseteredGridView(
+        Responsive(
+          mobile: SizedBox(
+            height: 200,
+            child: UserRegiseteredGridView(
               crossAxisCount: size.width < 650 ? 2 : 4,
               childAspectRatio: size.width < 650 && size.width > 350 ? 1.3 : 1,
             ),
-            tablet: const UserRegiseteredGridView(),
-            desktop: UserRegiseteredGridView(
-              childAspectRatio: size.width < 1400 ? 1.1 : 1.4,
+          ),
+          tablet: const SizedBox(
+            height: 100,
+            child: UserRegiseteredGridView(),
+          ),
+          desktop: SizedBox(
+            height: 100,
+            child: UserRegiseteredGridView(
+              childAspectRatio: size.width < 1400 ? 1.1 : 3,
             ),
           ),
         ),

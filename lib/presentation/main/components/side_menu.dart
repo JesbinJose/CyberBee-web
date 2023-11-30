@@ -17,10 +17,20 @@ class SideMenu extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/logo.png',width: 35,),
-                const SizedBox(width: defaultPadding-6),
-                Text('CYBERBEE',style: GoogleFonts.bangers(color: Colors.white,fontSize: 30),),
-                const SizedBox(width: defaultPadding-6),
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 35,
+                ),
+                const SizedBox(width: defaultPadding - 6),
+                Text(
+                  'CYBERBEE',
+                  style: GoogleFonts.bangers(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                  overflow: TextOverflow.fade,
+                ),
+                const SizedBox(width: defaultPadding - 6),
               ],
             ),
           ),
@@ -59,5 +69,3 @@ class SideMenu extends StatelessWidget {
     );
   }
 }
-
-

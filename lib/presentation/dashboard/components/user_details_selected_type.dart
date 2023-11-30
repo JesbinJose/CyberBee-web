@@ -1,11 +1,12 @@
+import 'package:cyberbee_web/application/bloc/dashboard/dash_board_selected_type_bloc.dart';
+import 'package:cyberbee_web/application/type_check.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';
 
 class SingleTypeShowDetails extends StatelessWidget {
-  const SingleTypeShowDetails({
-    Key? key,
-  }) : super(key: key);
+  const SingleTypeShowDetails({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,20 +18,26 @@ class SingleTypeShowDetails extends StatelessWidget {
           Radius.circular(10),
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Students",
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: Container(
-              height: 300,
-            ),
-          ),
-        ],
+      child: BlocBuilder<DashBoardSelectedTypeBloc, DashBoardSelectedTypeState>(
+        builder: (context, state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                typeName(
+                  state.userType,
+                ),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Container(
+                  height: MediaQuery.sizeOf(context).height-300,
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
