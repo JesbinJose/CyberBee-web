@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
-class RecentFiles extends StatelessWidget {
-  const RecentFiles({
+class SingleTypeShowDetails extends StatelessWidget {
+  const SingleTypeShowDetails({
     Key? key,
   }) : super(key: key);
 

@@ -1,4 +1,3 @@
-import 'package:cyberbee_web/responsive.dart';
 import 'package:cyberbee_web/presentation/dashboard/components/user_details_selected_type.dart';
 import 'package:cyberbee_web/presentation/dashboard/components/user_show_details.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +10,14 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: SingleChildScrollView(
         primary: false,
-        padding: const EdgeInsets.all(defaultPadding),
+        padding: EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            const Header(),
-            const SizedBox(height: defaultPadding),
+            Header(),
+            SizedBox(height: defaultPadding),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -26,16 +25,12 @@ class DashboardScreen extends StatelessWidget {
                   flex: 5,
                   child: Column(
                     children: [
-                      const UsersDashboardDetails(),
-                      const SizedBox(height: defaultPadding),
-                      const RecentFiles(),
-                      if (Responsive.isMobile(context))
-                        const SizedBox(height: defaultPadding),
+                      UsersDashboardDetails(),
+                      SizedBox(height: defaultPadding),
+                      SingleTypeShowDetails(),
                     ],
                   ),
                 ),
-                if (!Responsive.isMobile(context))
-                  const SizedBox(width: defaultPadding),
               ],
             )
           ],
