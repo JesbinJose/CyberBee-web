@@ -43,6 +43,7 @@ class SingleTypeShowDetails extends StatelessWidget {
                         ShowUserInfoWidget(
                           width: Responsive.isTablet(context) ? 350 : 400,
                           type: state.userType,
+                          isProfile: false,
                         ),
                         if (!Responsive.isMobile(context))
                           ShowUserInfoWidget(

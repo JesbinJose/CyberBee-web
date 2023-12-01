@@ -1,3 +1,4 @@
+import 'package:cyberbee_web/application/bloc/dashboard/manage_each_users/manage_single_user_dash_board_bloc.dart';
 import 'package:cyberbee_web/application/bloc/dashboard/usercontrol/dash_board_selected_type_bloc.dart';
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/firebase_option/firebase_options.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<DashBoardSelectedTypeBloc>(
             create: (BuildContext context) => DashBoardSelectedTypeBloc(),
+          ),
+          BlocProvider<ManageSingleUserDashBoardBloc>(
+            create: (BuildContext context) => ManageSingleUserDashBoardBloc(),
           ),
         ],
         child: const MainScreen(),
