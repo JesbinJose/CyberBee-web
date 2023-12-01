@@ -14,15 +14,6 @@ class UsersDashboardDetails extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "Users",
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ],
-        ),
         const SizedBox(height: defaultPadding),
         Responsive(
           mobile: SizedBox(

@@ -1,4 +1,4 @@
-import 'package:cyberbee_web/application/bloc/dashboard/dash_board_selected_type_bloc.dart';
+import 'package:cyberbee_web/application/bloc/dashboard/usercontrol/dash_board_selected_type_bloc.dart';
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/firebase_option/firebase_options.dart';
 import 'package:cyberbee_web/presentation/main/main_screen.dart';

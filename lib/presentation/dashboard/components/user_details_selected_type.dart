@@ -1,4 +1,4 @@
-import 'package:cyberbee_web/application/bloc/dashboard/dash_board_selected_type_bloc.dart';
+import 'package:cyberbee_web/application/bloc/dashboard/usercontrol/dash_board_selected_type_bloc.dart';
 import 'package:cyberbee_web/application/type_check.dart';
 import 'package:cyberbee_web/presentation/dashboard/components/show_user_part.dart';
 import 'package:cyberbee_web/responsive.dart';
@@ -42,17 +42,20 @@ class SingleTypeShowDetails extends StatelessWidget {
                       children: [
                         ShowUserInfoWidget(
                           width: Responsive.isTablet(context) ? 350 : 400,
+                          type: state.userType,
                         ),
                         if (!Responsive.isMobile(context))
                           ShowUserInfoWidget(
                             width: Responsive.isTablet(context) ? 350 : 400,
+                            type: state.userType,
                           ),
                       ],
                     ),
                     if (Responsive.isMobile(context))
                       const SizedBox(height: defaultPadding),
                     if (Responsive.isMobile(context))
-                      const ShowUserInfoWidget(
+                      ShowUserInfoWidget(
+                        type: state.userType,
                         width: 400,
                       ),
                     const SizedBox(height: 30),

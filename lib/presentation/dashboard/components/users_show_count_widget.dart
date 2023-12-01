@@ -1,4 +1,4 @@
-import 'package:cyberbee_web/application/bloc/dashboard/dash_board_selected_type_bloc.dart';
+import 'package:cyberbee_web/application/bloc/dashboard/usercontrol/dash_board_selected_type_bloc.dart';
 import 'package:cyberbee_web/application/type_check.dart';
 import 'package:cyberbee_web/constants.dart';
 import 'package:flutter/material.dart';
