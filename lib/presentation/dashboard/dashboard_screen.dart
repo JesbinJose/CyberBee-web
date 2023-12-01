@@ -3,7 +3,7 @@ import 'package:cyberbee_web/presentation/dashboard/components/user_show_details
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
-import 'components/header.dart';
+import '../components/header.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -16,7 +16,7 @@ class DashboardScreen extends StatelessWidget {
         padding: EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            Header(),
+            Header(title: "Dashboard",),
             SizedBox(height: defaultPadding),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

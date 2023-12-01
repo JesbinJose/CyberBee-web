@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
   const Header({
-    Key? key,
+    Key? key, required this.title,
   }) : super(key: key);
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class Header extends StatelessWidget {
           ),
         if (!Responsive.isMobile(context))
           Text(
-            "Dashboard",
+            title,
             style: Theme.of(context).textTheme.titleLarge,
           ),
         if (!Responsive.isMobile(context))
@@ -28,4 +29,3 @@ class Header extends StatelessWidget {
     );
   }
 }
-

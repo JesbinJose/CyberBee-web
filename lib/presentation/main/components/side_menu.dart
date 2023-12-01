@@ -34,35 +34,35 @@ class SideMenu extends StatelessWidget {
               ],
             ),
           ),
-          DrawerListTile(
+          const DrawerListTile(
             title: "Dashboard",
             svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {},
+            index: 0,
           ),
-          DrawerListTile(
+          const DrawerListTile(
             title: "Task",
             svgSrc: "assets/icons/task.svg",
-            press: () {},
+            index: 1,
           ),
-          DrawerListTile(
+          const DrawerListTile(
             title: "Payment",
             svgSrc: "assets/icons/payment.svg",
-            press: () {},
+            index: 2,
           ),
-          DrawerListTile(
+          const DrawerListTile(
             title: "Messages",
             svgSrc: "assets/icons/message.svg",
-            press: () {},
+            index: 3,
           ),
-          DrawerListTile(
+          const DrawerListTile(
             title: "Activities",
             svgSrc: "assets/icons/activites.svg",
-            press: () {},
+            index: 4,
           ),
-          DrawerListTile(
+          const DrawerListTile(
             title: "Content",
             svgSrc: "assets/icons/content.svg",
-            press: () {},
+            index: 5,
           ),
         ],
       ),
