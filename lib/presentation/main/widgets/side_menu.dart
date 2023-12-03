@@ -1,5 +1,5 @@
 import 'package:cyberbee_web/constants.dart';
-import 'package:cyberbee_web/presentation/main/components/single_menu_widget.dart';
+import 'package:cyberbee_web/presentation/main/widgets/single_menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -42,17 +42,17 @@ class SideMenu extends StatelessWidget {
           const DrawerListTile(
             title: "Messages",
             svgSrc: "assets/icons/message.svg",
-            index: 3,
+            index: 1,
           ),
           const DrawerListTile(
             title: "Activities",
             svgSrc: "assets/icons/activites.svg",
-            index: 4,
+            index: 2,
           ),
           const DrawerListTile(
             title: "Content",
             svgSrc: "assets/icons/content.svg",
-            index: 5,
+            index: 3,
           ),
         ],
       ),

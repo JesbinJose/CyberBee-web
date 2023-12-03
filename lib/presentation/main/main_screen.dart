@@ -3,7 +3,7 @@ import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'components/side_menu.dart';
+import 'widgets/side_menu.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
