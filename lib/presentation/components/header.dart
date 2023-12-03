@@ -17,12 +17,10 @@ class Header extends StatelessWidget {
             icon: const Icon(Icons.menu),
             onPressed: () {},
           ),
-        if (!Responsive.isMobile(context))
           Text(
             title,
             style: Theme.of(context).textTheme.titleLarge,
           ),
-        if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         const ProfileCard()
       ],

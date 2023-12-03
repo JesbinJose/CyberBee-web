@@ -6,27 +6,31 @@ class UserRegiseteredGridView extends StatelessWidget {
   const UserRegiseteredGridView({
     Key? key,
     this.crossAxisCount = 4,
-    this.childAspectRatio = 1,
+    this.childAspectRatio = 1, required this.height,
   }) : super(key: key);
 
   final int crossAxisCount;
   final double childAspectRatio;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     final List userTypes = [...UserType.values];
-    return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: 4,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount,
-        crossAxisSpacing: defaultPadding,
-        mainAxisSpacing: defaultPadding,
-        childAspectRatio: 3,
-      ),
-      itemBuilder: (context, index) => ShowUserCount(
-        type: userTypes[index],
+    return SizedBox(
+      height: height,
+      child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: 4,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          crossAxisSpacing: defaultPadding,
+          mainAxisSpacing: defaultPadding,
+          childAspectRatio: 3,
+        ),
+        itemBuilder: (context, index) => ShowUserCount(
+          type: userTypes[index],
+        ),
       ),
     );
   }

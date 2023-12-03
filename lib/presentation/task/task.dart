@@ -1,5 +1,6 @@
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/presentation/components/header.dart';
+import 'package:cyberbee_web/presentation/task/componets/top_view.dart';
 import 'package:flutter/material.dart';
 
 class TaskScreen extends StatelessWidget {
@@ -15,6 +16,9 @@ class TaskScreen extends StatelessWidget {
           children: [
             Header(title: 'Task',),
             SizedBox(height: defaultPadding,),
+            TaskQuestionAndQuizControl(),
+            SizedBox(height: defaultPadding,),
+            
           ],
         ),
       ),

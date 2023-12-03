@@ -12,26 +12,19 @@ class UsersDashboardDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    
     return Column(
       children: [
         const SizedBox(height: defaultPadding),
         Responsive(
-          mobile: SizedBox(
+          mobile: UserRegiseteredGridView(
             height: 200,
-            child: UserRegiseteredGridView(
-              crossAxisCount: size.width < 650 ? 2 : 4,
-              childAspectRatio: size.width < 650 && size.width > 350 ? 1.3 : 1,
-            ),
+            crossAxisCount: size.width < 650 ? 2 : 4,
+            childAspectRatio: size.width < 650 && size.width > 350 ? 1.3 : 1,
           ),
-          tablet: const SizedBox(
-            height: 100,
-            child: UserRegiseteredGridView(),
-          ),
-          desktop: SizedBox(
-            height: 100,
-            child: UserRegiseteredGridView(
-              childAspectRatio: size.width < 1400 ? 1.1 : 3,
-            ),
+          tablet: const UserRegiseteredGridView(height: 100,),
+          desktop: UserRegiseteredGridView(height: 100,
+            childAspectRatio: size.width < 1400 ? 1.1 : 3,
           ),
         ),
       ],

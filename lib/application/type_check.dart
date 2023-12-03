@@ -11,7 +11,7 @@ String typeName(UserType user) {
     case UserType.admin:
       return "Admin";
     default:
-      return "Total Users";
+      return "Users";
   }
 }
 

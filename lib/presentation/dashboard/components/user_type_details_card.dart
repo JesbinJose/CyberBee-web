@@ -19,7 +19,10 @@ class UserInfoCard extends StatelessWidget {
       margin: const EdgeInsets.only(top: defaultPadding),
       padding: const EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
-        border: Border.all(width: 2, color: primaryColor.withOpacity(0.15)),
+        border: Border.all(
+          width: 2,
+          color: primaryColor.withOpacity(0.15),
+        ),
         borderRadius: const BorderRadius.all(
           Radius.circular(defaultPadding),
         ),
@@ -52,7 +55,9 @@ class UserInfoCard extends StatelessWidget {
               ),
             ),
           ),
-          Text(number.toString())
+          Text(
+            number.toString(),
+          ),
         ],
       ),
     );
