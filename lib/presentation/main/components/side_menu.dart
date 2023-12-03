@@ -40,16 +40,6 @@ class SideMenu extends StatelessWidget {
             index: 0,
           ),
           const DrawerListTile(
-            title: "Task",
-            svgSrc: "assets/icons/task.svg",
-            index: 1,
-          ),
-          const DrawerListTile(
-            title: "Payment",
-            svgSrc: "assets/icons/payment.svg",
-            index: 2,
-          ),
-          const DrawerListTile(
             title: "Messages",
             svgSrc: "assets/icons/message.svg",
             index: 3,
