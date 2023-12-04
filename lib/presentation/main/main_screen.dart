@@ -1,4 +1,6 @@
 import 'package:cyberbee_web/application/bloc/drawer_control/drawer_control_bloc.dart';
+import 'package:cyberbee_web/presentation/dashboard/dashboard.dart';
+import 'package:cyberbee_web/presentation/widgets/header.dart';
 import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,19 +8,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'widgets/side_menu.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+  MainScreen({super.key});
 
+  final List<Widget> screens = <Widget>[
+    const DashBoardScreen(),
+    const Scaffold(),
+    const Scaffold(),
+    const Scaffold(),
+    const Scaffold(),
+  ];
+  final List<String> titles = <String>[
+    'Dashboard',
+    'Message',
+    'Activities',
+    'Content',
+  ];
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    const List<Widget> screens = [
-      Scaffold(),
-      Scaffold(),
-      Scaffold(),
-      Scaffold(),
-      Scaffold(),
-    ];
     return Scaffold(
-      drawer: const SideMenu(),
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +41,19 @@ class MainScreen extends StatelessWidget {
               flex: 5,
               child: BlocBuilder<DrawerControlBloc, DrawerControlState>(
                 builder: (context, state) {
-                  return screens[state.screenIndex];
+                  return Scaffold(
+                    key: _key,
+                    drawer:
+                        Responsive.isMobile(context) ? const SideMenu() : null,
+                    appBar: PreferredSize(
+                      preferredSize: const Size(double.infinity, 70),
+                      child: Header(
+                        title: titles[state.screenIndex],
+                        scaffoldKey: _key,
+                      ),
+                    ),
+                    body: screens[state.screenIndex],
+                  );
                 },
               ),
             ),

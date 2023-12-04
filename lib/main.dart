@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => DrawerControlBloc(),
           ),
         ],
-        child: const MainScreen(),
+        child: MainScreen(),
       ),
     );
   }
