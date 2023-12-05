@@ -1,6 +1,8 @@
+import 'package:cyberbee_web/application/bloc/dashboard/manage_each_users/manage_single_user_dash_board_bloc.dart';
 import 'package:cyberbee_web/application/bloc/dashboard/usercontrol/dash_board_selected_type_bloc.dart';
 import 'package:cyberbee_web/application/type_check.dart';
 import 'package:cyberbee_web/constants.dart';
+import 'package:cyberbee_web/presentation/dashboard/widgets/single_user_screen.dart';
 import 'package:cyberbee_web/presentation/dashboard/widgets/user_type_count.dart';
 import 'package:cyberbee_web/presentation/dashboard/widgets/usertype_all_list.dart';
 import 'package:cyberbee_web/responsive.dart';
@@ -64,14 +66,24 @@ class DashBoardScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return SizedBox(
                       child: Center(
-                        child: BlocBuilder<DashBoardSelectedTypeBloc,
-                            DashBoardSelectedTypeState>(
-                          builder: (context, state) {
-                            return ShowUsersByTypeWidget(
-                              type: state.userType,
-                            );
-                          },
-                        ),
+                        child: index == 0
+                            ? BlocBuilder<DashBoardSelectedTypeBloc,
+                                DashBoardSelectedTypeState>(
+                                builder: (context, state) {
+                                  return ShowUsersByTypeWidget(
+                                    type: state.userType,
+                                  );
+                                },
+                              )
+                            : BlocBuilder<ManageSingleUserDashBoardBloc,
+                                ManageSingleUserDashBoardState>(
+                                builder: (context, state) {
+                                  if (state.user != null) {
+                                    return SingleUserScreen(user: state.user!);
+                                  }
+                                  return const SizedBox.shrink();
+                                },
+                              ),
                       ),
                     );
                   },
