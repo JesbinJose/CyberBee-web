@@ -50,7 +50,7 @@ class SideMenu extends StatelessWidget {
             index: 2,
           ),
           const DrawerListTile(
-            title: "Content",
+            title: "Courses",
             svgSrc: "assets/icons/content.svg",
             index: 3,
           ),

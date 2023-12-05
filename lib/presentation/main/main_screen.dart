@@ -37,8 +37,8 @@ class MainScreen extends StatelessWidget {
                 child: SideMenu(),
               ),
             Expanded(
-              // It takes 5/6 part of the screen
-              flex: 5,
+              // It takes 4/5 part of the screen
+              flex: 4,
               child: BlocBuilder<DrawerControlBloc, DrawerControlState>(
                 builder: (context, state) {
                   return Scaffold(
