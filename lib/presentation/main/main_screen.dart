@@ -1,4 +1,5 @@
 import 'package:cyberbee_web/application/bloc/drawer_control/drawer_control_bloc.dart';
+import 'package:cyberbee_web/presentation/courses/course.dart';
 import 'package:cyberbee_web/presentation/dashboard/dashboard.dart';
 import 'package:cyberbee_web/presentation/widgets/header.dart';
 import 'package:cyberbee_web/responsive.dart';
@@ -14,14 +15,13 @@ class MainScreen extends StatelessWidget {
     const DashBoardScreen(),
     const Scaffold(),
     const Scaffold(),
-    const Scaffold(),
-    const Scaffold(),
+    const CourseScreen(),
   ];
   final List<String> titles = <String>[
     'Dashboard',
     'Message',
     'Activities',
-    'Content',
+    'Course',
   ];
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
