@@ -15,6 +15,7 @@ class ShowUsersByTypeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 450,
+      height: 600,
       padding: const EdgeInsets.all(
         defaultPadding,
       ),

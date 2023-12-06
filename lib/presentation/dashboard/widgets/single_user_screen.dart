@@ -63,13 +63,28 @@ class SingleUserScreen extends StatelessWidget {
             },
           ),
           const SizedBox(height: 30),
+          if (user.id != '')
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Text('Change access'),
+                ChangeUserAccessButton(
+                  usertype: usertype,
+                ),
+                CustomTextButton(
+                  onTap: () async => await UserDetailsForAdmin.changeAccess(
+                    userId: user.id,
+                    isAdmin: usertype.value == UserType.admin,
+                    isTutor: usertype.value == UserType.tutor,
+                  ),
+                  content: 'Save',
+                ),
+              ],
+            ),
+          const SizedBox(height: defaultPadding),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CustomTextButton(
-                onTap: () {},
-                content: 'Add course',
-              ),
               CustomTextButton(
                 onTap: () {
                   UserDetailsForAdmin.deleteUser(
@@ -79,25 +94,8 @@ class SingleUserScreen extends StatelessWidget {
                 },
                 content: 'Delete',
               ),
-            ],
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text('Change access'),
-              ChangeUserAccessButton(
-                usertype: usertype,
-              ),
-              CustomTextButton(
-                onTap: () async => await UserDetailsForAdmin.changeAccess(
-                  userId: user.id,
-                  isAdmin: usertype.value == UserType.admin,
-                  isTutor: usertype.value == UserType.tutor,
-                ),
-                content: 'Save',
+              const SizedBox(
+                width: 45,
               ),
             ],
           ),
