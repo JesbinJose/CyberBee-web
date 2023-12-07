@@ -1,4 +1,9 @@
+import 'package:cyberbee_web/application/bloc/course/edit_course/edit_course_bloc.dart';
+import 'package:cyberbee_web/application/bloc/dashboard/manage_each_users/manage_single_user_dash_board_bloc.dart';
+import 'package:cyberbee_web/application/bloc/dashboard/usercontrol/dash_board_selected_type_bloc.dart';
+import 'package:cyberbee_web/application/bloc/drawer_control/drawer_control_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 const primaryColor = Color(0xFF2697FF);
 const secondaryColor = Color(0xFF2A2D3E);
@@ -12,3 +17,18 @@ enum UserType {
   tutor,
   admin,
 }
+
+List<BlocProvider> providers = [
+  BlocProvider<DashBoardSelectedTypeBloc>(
+    create: (BuildContext context) => DashBoardSelectedTypeBloc(),
+  ),
+  BlocProvider<ManageSingleUserDashBoardBloc>(
+    create: (BuildContext context) => ManageSingleUserDashBoardBloc(),
+  ),
+  BlocProvider<DrawerControlBloc>(
+    create: (BuildContext context) => DrawerControlBloc(),
+  ),
+  BlocProvider<EditCourseBloc>(
+    create: (BuildContext context) => EditCourseBloc(),
+  ),
+];

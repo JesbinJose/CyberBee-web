@@ -1,6 +1,3 @@
-import 'package:cyberbee_web/application/bloc/dashboard/manage_each_users/manage_single_user_dash_board_bloc.dart';
-import 'package:cyberbee_web/application/bloc/dashboard/usercontrol/dash_board_selected_type_bloc.dart';
-import 'package:cyberbee_web/application/bloc/drawer_control/drawer_control_bloc.dart';
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/firebase_option/firebase_options.dart';
 import 'package:cyberbee_web/presentation/main/main_screen.dart';
@@ -32,17 +29,7 @@ class MyApp extends StatelessWidget {
         canvasColor: secondaryColor,
       ),
       home: MultiBlocProvider(
-        providers: [
-          BlocProvider<DashBoardSelectedTypeBloc>(
-            create: (BuildContext context) => DashBoardSelectedTypeBloc(),
-          ),
-          BlocProvider<ManageSingleUserDashBoardBloc>(
-            create: (BuildContext context) => ManageSingleUserDashBoardBloc(),
-          ),
-          BlocProvider<DrawerControlBloc>(
-            create: (BuildContext context) => DrawerControlBloc(),
-          ),
-        ],
+        providers: providers,
         child: MainScreen(),
       ),
     );
