@@ -1,5 +1,6 @@
 import 'package:cyberbee_web/application/bloc/course/edit_course/edit_course_bloc.dart';
 import 'package:cyberbee_web/constants.dart';
+import 'package:cyberbee_web/presentation/courses/widgets/course_edit_view_control.dart';
 import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,6 @@ class EditCourseWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 600,
       padding: const EdgeInsets.all(defaultPadding),
       margin: const EdgeInsets.fromLTRB(15, 0, 15, 20),
       decoration: const BoxDecoration(
@@ -50,8 +50,15 @@ class EditCourseWidget extends StatelessWidget {
                 child: BlocBuilder<EditCourseBloc, EditCourseState>(
                   builder: (context, state) {
                     return index == 0
-                        ? const CourseEditView(type: CourseEditType.course,)
-                        : const CourseEditView(type: CourseEditType.course,);
+                        ? CourseEditView(
+                            type: state.first,
+                            courseId: state.course?.id,
+                          )
+                        : CourseEditView(
+                            type: state.second,
+                            courseId: state.course?.id,
+                            isFirst: false,
+                          );
                   },
                 ),
               ),
@@ -60,17 +67,5 @@ class EditCourseWidget extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-class CourseEditView extends StatelessWidget {
-  const CourseEditView({
-    super.key, required this.type,
-  });
-  final CourseEditType type;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

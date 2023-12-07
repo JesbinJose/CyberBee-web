@@ -10,13 +10,13 @@ class EditCourseBloc extends Bloc<EditCourseEvent, EditCourseState> {
   EditCourseBloc() : super(EditCourseInitial(course: null)) {
     on<ChangeCourse>((event, emit) {
       emit(
-        EditCourseUpdated(
-          course: event.course,
-        ),
+        EditCourseUpdated(course: event.course),
       );
     });
     on<ChangeEditType>((event, emit) {
-      emit(UpdatedEditView(first: event.first, second: event.second));
+      emit(
+        UpdatedEditView(first: event.first, second: event.second),
+      );
     });
   }
 }

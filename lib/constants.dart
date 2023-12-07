@@ -29,3 +29,42 @@ List<BlocProvider> providers = [
 ];
 
 enum CourseEditType { course, level, part }
+
+InputDecoration myFormFieldInputDecoration({
+  required IconData? icon,
+  required String hintText,
+}) {
+  return InputDecoration(
+    prefixIcon: icon != null
+        ? Icon(
+            icon,
+            color: Colors.white,
+          )
+        : null,
+    hintText: hintText,
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 1.5,
+        color: bgColor.withOpacity(0.6),
+      ),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 1.5,
+        color: Colors.red.withOpacity(0.6),
+      ),
+    ),
+    focusedBorder: const OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 1.5,
+        color: bgColor,
+      ),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 1.5,
+        color: Colors.red.withOpacity(0.6),
+      ),
+    ),
+  );
+}
