@@ -14,17 +14,9 @@ class CourseScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const SizedBox(
-              height: 30,
-            ),
-            const SizedBox(
-              height: 200,
-              width: double.infinity,
-              child: CourseListView(),
-            ),
-            const SizedBox(
-              height: defaultPadding,
-            ),
+            const SizedBox(height: 30),
+            const CourseListView(),
+            const SizedBox(height: defaultPadding),
             Container(),
           ],
         ),
@@ -32,4 +24,3 @@ class CourseScreen extends StatelessWidget {
     );
   }
 }
-
