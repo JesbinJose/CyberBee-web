@@ -41,4 +41,19 @@ class Responsive extends StatelessWidget {
       return mobile;
     }
   }
+
+  static double getWidthRatio({
+    required double mobile,
+    required double tablet,
+    required double desktop,
+    required BuildContext context,
+  }) {
+    if (Responsive.isMobile(context)) {
+      return mobile;
+    } else if (Responsive.isTablet(context)) {
+      return tablet;
+    }else{
+      return desktop;
+    }
+  }
 }

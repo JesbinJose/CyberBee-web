@@ -30,6 +30,7 @@ class SingleUserScreen extends StatelessWidget {
     usertype = ValueNotifier(type);
     return Container(
       width: 450,
+      height: 600,
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.1),
         borderRadius: const BorderRadius.all(

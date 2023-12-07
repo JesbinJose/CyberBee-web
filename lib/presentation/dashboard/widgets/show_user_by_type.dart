@@ -32,8 +32,7 @@ class DashboradUsersListWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BlocBuilder<DashBoardSelectedTypeBloc,
-              DashBoardSelectedTypeState>(
+          BlocBuilder<DashBoardSelectedTypeBloc, DashBoardSelectedTypeState>(
             builder: (context, state) {
               return Text(
                 typeName(
@@ -50,7 +49,12 @@ class DashboradUsersListWidget extends StatelessWidget {
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: Responsive.isMobile(context) ? 1 : 2,
-              childAspectRatio: 0.9,
+              childAspectRatio: Responsive.getWidthRatio(
+                mobile: 0.7,
+                tablet: 0.73,
+                desktop: 0.9,
+                context: context,
+              ),
               crossAxisSpacing: defaultPadding * 2,
               mainAxisSpacing: defaultPadding,
             ),
@@ -68,12 +72,9 @@ class DashboradUsersListWidget extends StatelessWidget {
                         )
                       : BlocBuilder<ManageSingleUserDashBoardBloc,
                           ManageSingleUserDashBoardState>(
-                          builder: (context, state) {
-                            if (state.user != null) {
-                              return SingleUserScreen(user: state.user!);
-                            }
-                            return const SizedBox.shrink();
-                          },
+                          builder: (context, state) => state.user != null
+                              ? SingleUserScreen(user: state.user!)
+                              : const SizedBox.shrink(),
                         ),
                 ),
               );

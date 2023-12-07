@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class UserProfileDetailsTile extends StatelessWidget {
@@ -13,10 +12,7 @@ class UserProfileDetailsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 40,
-        vertical: 10,
-      ),
+      padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
