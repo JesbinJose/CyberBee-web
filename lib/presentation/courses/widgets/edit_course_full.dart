@@ -27,7 +27,12 @@ class EditCourseWidget extends StatelessWidget {
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: Responsive.isMobile(context) ? 1 : 2,
-          childAspectRatio: 0.9,
+          childAspectRatio: Responsive.getWidthRatio(
+            mobile: 0.7,
+            tablet: 0.73,
+            desktop: 0.9,
+            context: context,
+          ),
           crossAxisSpacing: defaultPadding * 2,
           mainAxisSpacing: defaultPadding,
         ),
@@ -44,7 +49,9 @@ class EditCourseWidget extends StatelessWidget {
                 ),
                 child: BlocBuilder<EditCourseBloc, EditCourseState>(
                   builder: (context, state) {
-                    return index == 0 ? Container() : Container();
+                    return index == 0
+                        ? const CourseEditView(type: CourseEditType.course,)
+                        : const CourseEditView(type: CourseEditType.course,);
                   },
                 ),
               ),
@@ -53,5 +60,17 @@ class EditCourseWidget extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class CourseEditView extends StatelessWidget {
+  const CourseEditView({
+    super.key, required this.type,
+  });
+  final CourseEditType type;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

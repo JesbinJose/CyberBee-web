@@ -11,12 +11,7 @@ const bgColor = Color(0xFF212332);
 
 const defaultPadding = 16.0;
 
-enum UserType {
-  total,
-  student,
-  tutor,
-  admin,
-}
+enum UserType { total, student, tutor, admin }
 
 List<BlocProvider> providers = [
   BlocProvider<DashBoardSelectedTypeBloc>(
@@ -32,3 +27,5 @@ List<BlocProvider> providers = [
     create: (BuildContext context) => EditCourseBloc(),
   ),
 ];
+
+enum CourseEditType { course, level, part }

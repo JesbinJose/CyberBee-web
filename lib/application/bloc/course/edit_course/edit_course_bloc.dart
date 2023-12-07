@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cyberbee_web/constants.dart';
 import 'package:meta/meta.dart';
 
 part 'edit_course_event.dart';
@@ -13,6 +14,9 @@ class EditCourseBloc extends Bloc<EditCourseEvent, EditCourseState> {
           course: event.course,
         ),
       );
+    });
+    on<ChangeEditType>((event, emit) {
+      emit(UpdatedEditView(first: event.first, second: event.second));
     });
   }
 }

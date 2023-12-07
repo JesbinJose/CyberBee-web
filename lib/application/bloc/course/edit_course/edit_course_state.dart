@@ -2,7 +2,13 @@ part of 'edit_course_bloc.dart';
 
 abstract class EditCourseState {
   final QueryDocumentSnapshot? course;
-  const EditCourseState({required this.course});
+  final CourseEditType first;
+  final CourseEditType second;
+  const EditCourseState({
+    this.course,
+    this.first = CourseEditType.course,
+    this.second = CourseEditType.level,
+  });
 }
 
 final class EditCourseInitial extends EditCourseState {
@@ -11,4 +17,11 @@ final class EditCourseInitial extends EditCourseState {
 
 final class EditCourseUpdated extends EditCourseState {
   EditCourseUpdated({required super.course});
+}
+
+final class UpdatedEditView extends EditCourseState {
+  UpdatedEditView({
+    required super.first,
+    required super.second,
+  });
 }
