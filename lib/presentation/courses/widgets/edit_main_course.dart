@@ -3,9 +3,9 @@ import 'package:cyberbee_web/core/firebase/function/courses/course_models.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
 import 'package:cyberbee_web/core/firebase_storage/upload_image.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/pick_image_control.dart';
+import 'package:cyberbee_web/presentation/widgets/custom_loading.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
-import 'package:cyberbee_web/presentation/widgets/show_snakbar.dart';
 import 'package:flutter/material.dart';
 
 class AddCourseScreen extends StatelessWidget {
@@ -65,6 +65,7 @@ class AddCourseScreen extends StatelessWidget {
                 onTap: () async {
                   if (_formKey.currentState!.validate()) {
                     if (_intoImageLink.value != null) {
+                      showLoading(context);
                       final String? imageLink =
                           await FireBaseStorage.upladCourseImage(
                         context,
@@ -80,10 +81,7 @@ class AddCourseScreen extends StatelessWidget {
                         introImageLink: imageLink ?? '',
                       );
                       await GetAllCourseDetails.addCourse(course).then(
-                        (_) => mySnakbar(
-                          context,
-                          'Course added',
-                        ),
+                        (_) => Navigator.pop(context),
                       );
                     }
                   }
