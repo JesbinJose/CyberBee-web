@@ -1,26 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/edit_main_course.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/level_edit.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CourseEditView extends StatelessWidget {
-  const CourseEditView({
+  CourseEditView({
     super.key,
     required this.type,
-    required this.courseId,
     this.isFirst = true,
-  });
+    required this.course,
+  }) {
+    courseId = course?.id;
+  }
+  final QueryDocumentSnapshot<Object?>? course;
   final CourseEditType type;
-  final String? courseId;
+  late String? courseId;
   final bool isFirst;
 
   @override
   Widget build(BuildContext context) {
-    if (isFirst && courseId == null) {
+    if (courseId == null && type == CourseEditType.course && isFirst) {
       return AddCourseScreen();
-    }
-    if (!isFirst && courseId == null) {
+    } else if (courseId == null && !isFirst) {
       return const SizedBox();
     }
     switch (type) {
@@ -34,7 +38,9 @@ class CourseEditView extends StatelessWidget {
           },
         );
       case CourseEditType.level:
-        return AddLevelScreen(courseName: courseId??'');
+        return AddLevelScreen(
+          course: course!,
+        );
       case CourseEditType.part:
         return Container(
           child: const Center(

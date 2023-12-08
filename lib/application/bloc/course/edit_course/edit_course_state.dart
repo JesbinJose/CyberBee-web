@@ -21,6 +21,7 @@ final class EditCourseUpdated extends EditCourseState {
 
 final class UpdatedEditView extends EditCourseState {
   UpdatedEditView({
+    required super.course,
     required super.first,
     required super.second,
   });

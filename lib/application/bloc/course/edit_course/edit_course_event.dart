@@ -11,7 +11,9 @@ class ChangeCourse extends EditCourseEvent {
 class ChangeEditType extends EditCourseEvent {
   final CourseEditType first;
   final CourseEditType second;
+  final QueryDocumentSnapshot course;
   ChangeEditType({
+    required this.course,
     required this.first,
     required this.second,
   });

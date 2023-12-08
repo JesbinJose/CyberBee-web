@@ -16,7 +16,7 @@ class SingleCourseTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => context.read<EditCourseBloc>().add(
-            ChangeCourse(course: course),
+            ChangeCourse(course: course,),
           ),
       child: Container(
         decoration: const BoxDecoration(

@@ -1,14 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cyberbee_web/application/bloc/course/edit_course/edit_course_bloc.dart';
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/add_level_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class AddLevelScreen extends StatelessWidget {
-  final String courseName;
+  late String courseName;
+  final QueryDocumentSnapshot<Object?> course;
   AddLevelScreen({
     super.key,
-    required this.courseName,
-  });
+    required this.course,
+  }) {
+    courseName = course.id;
+  }
   final TextEditingController levelName = TextEditingController();
   final TextEditingController levelNo = TextEditingController();
 
@@ -26,36 +33,41 @@ class AddLevelScreen extends StatelessWidget {
             return Column(
               children: [
                 if (snapshot.data != null)
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    final level = snapshot.data!.docs[index];
-                    return InkWell(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
-                        margin: const EdgeInsets.all(4),
-                        width: double.infinity,
-                        height: 50,
-                        decoration: const BoxDecoration(
-                          color: secondaryColor,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              10,
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      final level = snapshot.data!.docs[index];
+                      return InkWell(
+                        onTap: () => context.read<EditCourseBloc>().add(
+                              ChangeEditType(
+                                  first: CourseEditType.level,
+                                  second: CourseEditType.part,
+                                  course: course),
+                            ),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          margin: const EdgeInsets.all(4),
+                          width: double.infinity,
+                          height: 50,
+                          decoration: const BoxDecoration(
+                            color: secondaryColor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                10,
+                              ),
+                            ),
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              level['level_name'],
                             ),
                           ),
                         ),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            level['level_name'],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                      );
+                    },
+                  ),
                 AddLevelWidget(
                   levelName: levelName,
                   levelNo: levelNo,
@@ -69,4 +81,3 @@ class AddLevelScreen extends StatelessWidget {
     );
   }
 }
-

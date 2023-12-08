@@ -54,6 +54,8 @@ class AddLevelWidget extends StatelessWidget {
                 levelName: levelName.text,
                 courseName: courseName,
               );
+              levelName.text = "";
+              levelNo.text = "";
               GetAllCourseDetails.addLevel(level);
             },
             content: 'Add Level',
