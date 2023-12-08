@@ -1,6 +1,11 @@
 import 'dart:typed_data';
+import 'package:cyberbee_web/core/firebase/function/courses/course_models.dart';
+import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
+import 'package:cyberbee_web/core/firebase_storage/upload_image.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/pick_image_control.dart';
+import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
+import 'package:cyberbee_web/presentation/widgets/show_snakbar.dart';
 import 'package:flutter/material.dart';
 
 class AddCourseScreen extends StatelessWidget {
@@ -56,38 +61,35 @@ class AddCourseScreen extends StatelessWidget {
               const SizedBox(height: 20),
               PickImageControl(intoImageLink: _intoImageLink),
               const SizedBox(height: 30),
-              // MyCustomButton(
-              //   function: () async {
-              //     if (_formKey.currentState!.validate()) {
-              //       if (_intoImageLink.value.isNotEmpty) {
-              //         final String? imageLink =
-              //             await FireBaseStorage.upladImageToFirebaseStorage(
-              //           context,
-              //           file: File(_intoImageLink.value),
-              //           userId: _courseName.text,
-              //         );
-              //         MyCourse course = MyCourse(
-              //           courseName: _courseName.text,
-              //           description: _description.text,
-              //           amount: int.parse(_amount.text),
-              //           discount: int.parse(_discount.text),
-              //           introVideo: _introVideo.text,
-              //           introImageLink: imageLink ?? '',
-              //         );
-              //         await GetAllCourseDetails.addCourse(course);
-              //         // await Navigator.pushReplacement(
-              //         //   context,
-              //         //   MaterialPageRoute(
-              //         //     builder: (context) => AddLevelScreen(
-              //         //       courseName: _courseName.text,
-              //         //     ),
-              //         //   ),
-              //         // );
-              //       }
-              //     }
-              //   },
-              //   text: 'Next',
-              // ),
+              CustomTextButton(
+                onTap: () async {
+                  if (_formKey.currentState!.validate()) {
+                    if (_intoImageLink.value != null) {
+                      final String? imageLink =
+                          await FireBaseStorage.upladCourseImage(
+                        context,
+                        file: _intoImageLink.value!,
+                        courseId: _courseName.text,
+                      );
+                      MyCourse course = MyCourse(
+                        courseName: _courseName.text,
+                        description: _description.text,
+                        amount: int.parse(_amount.text),
+                        discount: int.parse(_discount.text),
+                        introVideo: _introVideo.text,
+                        introImageLink: imageLink ?? '',
+                      );
+                      await GetAllCourseDetails.addCourse(course).then(
+                        (_) => mySnakbar(
+                          context,
+                          'Course added',
+                        ),
+                      );
+                    }
+                  }
+                },
+                content: 'Add course',
+              ),
               const SizedBox(height: 30),
             ],
           ),
@@ -96,5 +98,3 @@ class AddCourseScreen extends StatelessWidget {
     );
   }
 }
-
-
