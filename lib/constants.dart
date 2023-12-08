@@ -35,6 +35,7 @@ InputDecoration myFormFieldInputDecoration({
   required String hintText,
 }) {
   return InputDecoration(
+    fillColor: secondaryColor,
     prefixIcon: icon != null
         ? Icon(
             icon,

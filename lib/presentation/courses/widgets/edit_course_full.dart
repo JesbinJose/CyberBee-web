@@ -41,6 +41,7 @@ class EditCourseWidget extends StatelessWidget {
             child: Center(
               child: Container(
                 width: 450,
+                height: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10),

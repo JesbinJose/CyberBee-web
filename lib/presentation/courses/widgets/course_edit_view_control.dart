@@ -26,17 +26,18 @@ class CourseEditView extends StatelessWidget {
     switch (type) {
       case CourseEditType.course:
         return StreamBuilder(
-            stream: GetAllCourseDetails.getCourseDetails(courseId!),
-            builder: (context, snapshot) {
-              return AddCourseScreen(
-                course: snapshot.data,
-              );
-            });
+          stream: GetAllCourseDetails.getCourseDetails(courseId!),
+          builder: (context, snapshot) {
+            return AddCourseScreen(
+              course: snapshot.data,
+            );
+          },
+        );
       case CourseEditType.level:
-        return AddLevelScreen(courseName: courseId!);
+        return AddLevelScreen(courseName: courseId??'');
       case CourseEditType.part:
-        return  Container(
-          child: Center(
+        return Container(
+          child: const Center(
             child: Text('part'),
           ),
         );

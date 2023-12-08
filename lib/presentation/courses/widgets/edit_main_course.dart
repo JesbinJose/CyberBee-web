@@ -14,8 +14,8 @@ class AddCourseScreen extends StatelessWidget {
   AddCourseScreen({super.key, this.course}) {
     _courseName = TextEditingController(text: course?.id);
     _description = TextEditingController(text: course?['description']);
-    _amount = TextEditingController(text: "${course?['amount']}");
-    _discount = TextEditingController(text: "${course?['amount']}");
+    _amount = TextEditingController(text: "${course?['amount']??''}");
+    _discount = TextEditingController(text: "${course?['discount']??''}");
     _introVideo = TextEditingController(text: course?['intro_video']);
     _intoImageLink = ValueNotifier<Uint8List?>(null);
     imageLink = course?['intro_image'];
@@ -42,31 +42,31 @@ class AddCourseScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 30),
               CustomTextFormField(
-                courseName: _courseName,
+                controller: _courseName,
                 hintText: 'Course Name',
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
-                courseName: _description,
+                controller: _description,
                 hintText: 'Description',
                 minLine: 5,
                 maxLine: null,
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
-                courseName: _amount,
+                controller: _amount,
                 hintText: 'Amount',
                 inputType: TextInputType.number,
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
-                courseName: _discount,
+                controller: _discount,
                 hintText: 'Discount',
                 inputType: TextInputType.number,
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
-                courseName: _introVideo,
+                controller: _introVideo,
                 hintText: 'Intro Video Link',
               ),
               const SizedBox(height: 20),
@@ -78,21 +78,23 @@ class AddCourseScreen extends StatelessWidget {
               CustomTextButton(
                 onTap: () async {
                   if (_formKey.currentState!.validate()) {
-                    if (_intoImageLink.value != null) {
+                    if (_intoImageLink.value != null || imageLink != null) {
                       showLoading(context);
-                      final String? imageLink =
-                          await FireBaseStorage.upladCourseImage(
-                        context,
-                        file: _intoImageLink.value!,
-                        courseId: _courseName.text,
-                      );
+                      String? imageLink;
+                      if (_intoImageLink.value != null) {
+                        imageLink = await FireBaseStorage.upladCourseImage(
+                          context,
+                          file: _intoImageLink.value!,
+                          courseId: _courseName.text,
+                        );
+                      }
                       MyCourse course = MyCourse(
                         courseName: _courseName.text,
                         description: _description.text,
                         amount: int.parse(_amount.text),
                         discount: int.parse(_discount.text),
                         introVideo: _introVideo.text,
-                        introImageLink: imageLink ?? '',
+                        introImageLink: imageLink ?? this.imageLink!,
                       );
                       await GetAllCourseDetails.addCourse(course).then(
                         (_) => Navigator.pop(context),

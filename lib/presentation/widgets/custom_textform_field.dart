@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
-    required TextEditingController courseName,
+    required TextEditingController controller,
     required this.hintText,
     this.inputType = TextInputType.text,
     this.textInputAction,
     this.minLine,
     this.maxLine = 1,
-  }) : _courseName = courseName;
+  }) : _courseName = controller;
 
   final String hintText;
   final TextEditingController _courseName;
