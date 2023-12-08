@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/course_models.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
 import 'package:cyberbee_web/core/firebase_storage/upload_image.dart';
@@ -8,15 +9,25 @@ import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AddCourseScreen extends StatelessWidget {
-  AddCourseScreen({super.key});
-  final TextEditingController _courseName = TextEditingController();
-  final TextEditingController _description = TextEditingController();
-  final TextEditingController _amount = TextEditingController();
-  final TextEditingController _discount = TextEditingController();
-  final TextEditingController _introVideo = TextEditingController();
-  final ValueNotifier<Uint8List?> _intoImageLink =
-      ValueNotifier<Uint8List?>(null);
+  AddCourseScreen({super.key, this.course}) {
+    _courseName = TextEditingController(text: course?.id);
+    _description = TextEditingController(text: course?['description']);
+    _amount = TextEditingController(text: "${course?['amount']}");
+    _discount = TextEditingController(text: "${course?['amount']}");
+    _introVideo = TextEditingController(text: course?['intro_video']);
+    _intoImageLink = ValueNotifier<Uint8List?>(null);
+    imageLink = course?['intro_image'];
+  }
+  late String? imageLink;
+  late DocumentSnapshot<Object?>? course;
+  late TextEditingController _courseName;
+  late TextEditingController _description;
+  late TextEditingController _amount;
+  late TextEditingController _discount;
+  late TextEditingController _introVideo;
+  late ValueNotifier<Uint8List?> _intoImageLink;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -59,7 +70,10 @@ class AddCourseScreen extends StatelessWidget {
                 hintText: 'Intro Video Link',
               ),
               const SizedBox(height: 20),
-              PickImageControl(intoImageLink: _intoImageLink),
+              PickImageControl(
+                intoImageLink: _intoImageLink,
+                urlImageLink: imageLink,
+              ),
               const SizedBox(height: 30),
               CustomTextButton(
                 onTap: () async {
@@ -86,7 +100,7 @@ class AddCourseScreen extends StatelessWidget {
                     }
                   }
                 },
-                content: 'Add course',
+                content: course == null ? 'Add course' : 'Save changes',
               ),
               const SizedBox(height: 30),
             ],

@@ -1,5 +1,7 @@
 import 'package:cyberbee_web/constants.dart';
+import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/edit_main_course.dart';
+import 'package:cyberbee_web/presentation/courses/widgets/level_edit.dart';
 import 'package:flutter/material.dart';
 
 class CourseEditView extends StatelessWidget {
@@ -18,21 +20,22 @@ class CourseEditView extends StatelessWidget {
     if (isFirst && courseId == null) {
       return AddCourseScreen();
     }
+    if (!isFirst && courseId == null) {
+      return const SizedBox();
+    }
     switch (type) {
       case CourseEditType.course:
-        return Container(
-          child: Center(
-            child: Text(courseId!),
-          ),
-        );
+        return StreamBuilder(
+            stream: GetAllCourseDetails.getCourseDetails(courseId!),
+            builder: (context, snapshot) {
+              return AddCourseScreen(
+                course: snapshot.data,
+              );
+            });
       case CourseEditType.level:
-        return Container(
-          child: Center(
-            child: Text('level'),
-          ),
-        );
+        return AddLevelScreen(courseName: courseId!);
       case CourseEditType.part:
-        return Container(
+        return  Container(
           child: Center(
             child: Text('part'),
           ),

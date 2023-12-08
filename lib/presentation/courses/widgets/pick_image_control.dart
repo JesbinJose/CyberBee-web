@@ -8,8 +8,10 @@ class PickImageControl extends StatelessWidget {
   const PickImageControl({
     super.key,
     required this.intoImageLink,
+    this.urlImageLink,
   });
   final ValueNotifier<Uint8List?> intoImageLink;
+  final String? urlImageLink;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -20,13 +22,6 @@ class PickImageControl extends StatelessWidget {
         ValueListenableBuilder(
             valueListenable: intoImageLink,
             builder: (___, _, __) {
-              if (intoImageLink.value == null) {
-                return const Center(
-                  child: Text(
-                    'No Images are selected',
-                  ),
-                );
-              }
               return Container(
                 width: 150,
                 height: 150,
@@ -43,10 +38,20 @@ class PickImageControl extends StatelessWidget {
                       10,
                     ),
                   ),
-                  child: Image.memory(
-                    intoImageLink.value!,
-                    fit: BoxFit.cover,
-                  ),
+                  //checking to show which image
+                  child: intoImageLink.value != null
+                      ? Image.memory(
+                          intoImageLink.value!,
+                          fit: BoxFit.cover,
+                        )
+                      : urlImageLink != null
+                          ? Image.network(
+                              urlImageLink!,
+                              fit: BoxFit.cover,
+                            )
+                          : const Text(
+                              'No image selected',
+                            ),
                 ),
               );
             }),
@@ -54,20 +59,19 @@ class PickImageControl extends StatelessWidget {
           child: SizedBox(),
         ),
         ValueListenableBuilder(
-          valueListenable: intoImageLink,
-          builder: (__, v,_) {
-            return CustomTextButton(
-              onTap: () => PickProfilePicture.pickImage(context).then(
-                (value) {
-                  if (value != null) {
-                    intoImageLink.value = value;
-                  }
-                },
-              ),
-              content: v == null ? 'Pick Image' : 'Change Image',
-            );
-          }
-        ),
+            valueListenable: intoImageLink,
+            builder: (__, v, _) {
+              return CustomTextButton(
+                onTap: () => PickProfilePicture.pickImage(context).then(
+                  (value) {
+                    if (value != null) {
+                      intoImageLink.value = value;
+                    }
+                  },
+                ),
+                content: v == null ? 'Pick Image' : 'Change Image',
+              );
+            }),
       ],
     );
   }
