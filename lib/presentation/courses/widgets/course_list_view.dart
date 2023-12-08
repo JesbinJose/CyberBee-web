@@ -22,7 +22,9 @@ class CourseListView extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               final course = snapshot.data!.docs[index];
-              return SingleCourseTile(course: course);
+              return SingleCourseTile(
+                course: course,
+              );
             },
             itemCount: snapshot.data!.docs.length,
           );
@@ -31,4 +33,3 @@ class CourseListView extends StatelessWidget {
     );
   }
 }
-

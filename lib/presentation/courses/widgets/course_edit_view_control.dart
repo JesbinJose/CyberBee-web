@@ -3,6 +3,7 @@ import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/edit_main_course.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/level_edit.dart';
+import 'package:cyberbee_web/presentation/courses/widgets/parts/add_parts.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -12,6 +13,7 @@ class CourseEditView extends StatelessWidget {
     required this.type,
     this.isFirst = true,
     required this.course,
+    this.levelNo,
   }) {
     courseId = course?.id;
   }
@@ -19,6 +21,7 @@ class CourseEditView extends StatelessWidget {
   final CourseEditType type;
   late String? courseId;
   final bool isFirst;
+  final String? levelNo;
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +45,9 @@ class CourseEditView extends StatelessWidget {
           course: course!,
         );
       case CourseEditType.part:
-        return Container(
-          child: const Center(
-            child: Text('part'),
-          ),
+        return AddPartsScreen(
+          courseName: courseId!,
+          levelNo: levelNo??'01',
         );
       default:
         return const SizedBox();

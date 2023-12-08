@@ -12,7 +12,9 @@ class ChangeEditType extends EditCourseEvent {
   final CourseEditType first;
   final CourseEditType second;
   final QueryDocumentSnapshot course;
+  final String? levelNo;
   ChangeEditType({
+    this.levelNo,
     required this.course,
     required this.first,
     required this.second,
