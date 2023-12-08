@@ -43,10 +43,14 @@ class MainScreen extends StatelessWidget {
                 builder: (context, state) {
                   return Scaffold(
                     key: _key,
-                    drawer:
-                        Responsive.isMobile(context) ? const SideMenu() : null,
+                    drawer: !Responsive.isDesktop(context)
+                        ? const SideMenu()
+                        : null,
                     appBar: PreferredSize(
-                      preferredSize: const Size(double.infinity, 70),
+                      preferredSize: const Size(
+                        double.infinity,
+                        70,
+                      ),
                       child: Header(
                         title: titles[state.screenIndex],
                         scaffoldKey: _key,
