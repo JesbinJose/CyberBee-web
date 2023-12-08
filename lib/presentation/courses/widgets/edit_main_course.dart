@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+import 'package:cyberbee_web/presentation/courses/widgets/pick_image_control.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +10,8 @@ class AddCourseScreen extends StatelessWidget {
   final TextEditingController _amount = TextEditingController();
   final TextEditingController _discount = TextEditingController();
   final TextEditingController _introVideo = TextEditingController();
-  final ValueNotifier<String> _intoImageLink = ValueNotifier<String>('');
+  final ValueNotifier<Uint8List?> _intoImageLink =
+      ValueNotifier<Uint8List?>(null);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -94,13 +97,4 @@ class AddCourseScreen extends StatelessWidget {
   }
 }
 
-class PickImageControl extends StatelessWidget {
-  const PickImageControl({
-    super.key, required this.intoImageLink,
-  });
-  final ValueNotifier<String> intoImageLink;
-  @override
-  Widget build(BuildContext context) {
-    return Row();
-  }
-}
+
