@@ -1,3 +1,5 @@
+import 'package:cyberbee_web/core/firebase/function/courses/course_models.dart';
+import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
 import 'package:flutter/material.dart';
@@ -7,14 +9,16 @@ class PartPdfAddWidget extends StatelessWidget {
     super.key,
     required this.partName,
     required this.descripition,
-    required this.partNo, required this.courseName, required this.levelName,
+    required this.partNo,
+    required this.courseName,
+    required this.levelName,
   });
 
   final TextEditingController _pdf = TextEditingController();
   final TextEditingController partName;
   final TextEditingController descripition;
   final TextEditingController partNo;
-    final String courseName;
+  final String courseName;
   final String levelName;
 
   @override
@@ -29,7 +33,19 @@ class PartPdfAddWidget extends StatelessWidget {
           height: 60,
         ),
         CustomTextButton(
-          onTap: () {},
+          onTap: () async {
+            final PDFPart part = PDFPart(
+              pdfUrl: _pdf.text,
+              partName: partName.text,
+              description: descripition.text,
+              partNo: partNo.text,
+            );
+            await GetAllCourseDetails.addPartsPdf(
+              courseName: courseName,
+              levelNo: levelName,
+              pdfPart: part,
+            );
+          },
           content: 'Add PDF',
         ),
       ],

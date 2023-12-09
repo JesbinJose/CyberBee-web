@@ -65,15 +65,28 @@ class GetAllCourseDetails {
       'type': 'video',
       'partName':videoPart.partName,
       'description':videoPart.description,
-      'video_url':videoPart.videoUrl,
+      'url':videoPart.videoUrl,
     });
   }
 
   static Future<void> addPartsPdf({
     required String courseName,
-    required String levelName,
+    required String levelNo,
     required PDFPart pdfPart,
-  }) async {}
+  }) async {
+    await _instance
+        .doc(courseName)
+        .collection('levels')
+        .doc(levelNo)
+        .collection('parts')
+        .doc(pdfPart.partNo)
+        .set({
+      'type': 'video',
+      'partName':pdfPart.partName,
+      'description':pdfPart.description,
+      'url':pdfPart.pdfUrl,
+    });
+  }
 
   static Future<void> addPartsQuiz({
     required String courseName,
