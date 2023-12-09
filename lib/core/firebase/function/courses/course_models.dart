@@ -18,7 +18,7 @@ class MyCourse {
 }
 
 class MyLevel {
-  MyLevel( {
+  MyLevel({
     this.partsNum = 0,
     required this.levelNumber,
     required this.levelName,
@@ -45,21 +45,34 @@ class MyParts {
   final PartType partType;
 }
 
-class VideoPart {
-  VideoPart({
-    required this.videoUrl,
+class Part {
+  Part({
+    required this.partName,
     required this.description,
+    required this.partNo,
   });
-  final String videoUrl;
+  final String partName;
   final String description;
+  final String partNo;
 }
 
-class Quiz {
-  Quiz({
-    required this.quizName,
-    required this.totalMark,
+class VideoPart extends Part {
+  VideoPart({
+    required this.videoUrl,
+    required super.partName,
+    required super.description,
+    required super.partNo,
   });
-  final String quizName;
+  final String videoUrl;
+}
+
+class Quiz extends Part {
+  Quiz({
+    required super.partName,
+    required this.totalMark,
+    required super.description,
+    required super.partNo,
+  });
   final int totalMark;
 }
 
@@ -82,11 +95,12 @@ class Question {
   final int mark;
 }
 
-class PDFPart {
+class PDFPart extends Part {
   PDFPart({
     required this.pdfUrl,
-    required this.description,
+    required super.partName,
+    required super.description,
+    required super.partNo,
   });
   final String pdfUrl;
-  final String description;
 }

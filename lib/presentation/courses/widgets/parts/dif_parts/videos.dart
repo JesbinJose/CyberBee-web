@@ -29,14 +29,16 @@ class PartVideoAddWidget extends StatelessWidget {
         ),
         const SizedBox(height: 60),
         CustomTextButton(
-          onTap: () async{
+          onTap: () async {
             final VideoPart videoPart = VideoPart(
               videoUrl: _video.text,
               description: descripition.text,
+              partName: partName.text,
+              partNo: partNo.text,
             );
             await GetAllCourseDetails.addPartsVideo(
               courseName: courseName,
-              levelName: levelName,
+              levelNo: levelName,
               videoPart: videoPart,
             );
           },

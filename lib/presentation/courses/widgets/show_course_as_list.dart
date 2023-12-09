@@ -26,7 +26,12 @@ class ShowCourseAsList extends StatelessWidget {
       stream: GetAllCourseDetails.getAllLevels(courseName),
       builder: (context, snapshot) {
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10,),
+              child: Text("Course - $courseName"),
+            ),
             if (snapshot.data != null)
               ListView.builder(
                 shrinkWrap: true,

@@ -12,6 +12,7 @@ class GetAllCourseDetails {
   static Stream<QuerySnapshot<Object?>> getCourses() {
     return _instance.snapshots();
   }
+
   static Stream<DocumentSnapshot<Object?>> getCourseDetails(String courseId) {
     return _instance.doc(courseId).snapshots();
   }
@@ -51,9 +52,22 @@ class GetAllCourseDetails {
 
   static Future<void> addPartsVideo({
     required String courseName,
-    required String levelName,
+    required String levelNo,
     required VideoPart videoPart,
-  }) async {}
+  }) async {
+    await _instance
+        .doc(courseName)
+        .collection('levels')
+        .doc(levelNo)
+        .collection('parts')
+        .doc(videoPart.partNo)
+        .set({
+      'type': 'video',
+      'partName':videoPart.partName,
+      'description':videoPart.description,
+      'video_url':videoPart.videoUrl,
+    });
+  }
 
   static Future<void> addPartsPdf({
     required String courseName,

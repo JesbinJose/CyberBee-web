@@ -27,7 +27,12 @@ class AddPartsScreen extends StatelessWidget {
               return const SizedBox();
             }
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10,),
+                  child: Text("Level - $levelNo"),
+                ),
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: snapshot.data!.docs.length,
@@ -47,7 +52,7 @@ class AddPartsScreen extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          part['part_name'],
+                          part['partName'],
                         ),
                       ),
                     );
