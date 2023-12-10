@@ -1,6 +1,7 @@
 import 'package:cyberbee_web/application/bloc/drawer_control/drawer_control_bloc.dart';
 import 'package:cyberbee_web/presentation/courses/course.dart';
 import 'package:cyberbee_web/presentation/dashboard/dashboard.dart';
+import 'package:cyberbee_web/presentation/events/events.dart';
 import 'package:cyberbee_web/presentation/widgets/header.dart';
 import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +15,13 @@ class MainScreen extends StatelessWidget {
   final List<Widget> screens = <Widget>[
     const DashBoardScreen(),
     const Scaffold(),
-    const Scaffold(),
+    const EventScreen(),
     const CourseScreen(),
   ];
   final List<String> titles = <String>[
     'Dashboard',
     'Message',
-    'Activities',
+    'Events',
     'Course',
   ];
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
@@ -33,8 +34,10 @@ class MainScreen extends StatelessWidget {
           children: [
             // We want this side menu only for large screen
             if (Responsive.isDesktop(context))
-              const Expanded(
-                child: SideMenu(),
+              Expanded(
+                child: SideMenu(
+                  scaffoldkey: _key,
+                ),
               ),
             Expanded(
               // It takes 4/5 part of the screen
@@ -44,7 +47,7 @@ class MainScreen extends StatelessWidget {
                   return Scaffold(
                     key: _key,
                     drawer: !Responsive.isDesktop(context)
-                        ? const SideMenu()
+                        ?  SideMenu(scaffoldkey: _key,)
                         : null,
                     appBar: PreferredSize(
                       preferredSize: const Size(

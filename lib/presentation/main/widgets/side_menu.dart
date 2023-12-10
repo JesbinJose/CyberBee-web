@@ -6,7 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 class SideMenu extends StatelessWidget {
   const SideMenu({
     Key? key,
+    required this.scaffoldkey,
   }) : super(key: key);
+  final GlobalKey<ScaffoldState> scaffoldkey;
 
   @override
   Widget build(BuildContext context) {
@@ -34,22 +36,26 @@ class SideMenu extends StatelessWidget {
               ],
             ),
           ),
-          const DrawerListTile(
+          DrawerListTile(
             title: "Dashboard",
             svgSrc: "assets/icons/menu_dashboard.svg",
             index: 0,
+            scaffoldkey: scaffoldkey,
           ),
-          const DrawerListTile(
+          DrawerListTile(
+            scaffoldkey: scaffoldkey,
             title: "Messages",
             svgSrc: "assets/icons/message.svg",
             index: 1,
           ),
-          const DrawerListTile(
-            title: "Activities",
+          DrawerListTile(
+            scaffoldkey: scaffoldkey,
+            title: "Events",
             svgSrc: "assets/icons/activites.svg",
             index: 2,
           ),
-          const DrawerListTile(
+          DrawerListTile(
+            scaffoldkey: scaffoldkey,
             title: "Courses",
             svgSrc: "assets/icons/content.svg",
             index: 3,
