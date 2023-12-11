@@ -2,6 +2,7 @@ import 'package:cyberbee_web/application/bloc/drawer_control/drawer_control_bloc
 import 'package:cyberbee_web/presentation/courses/course.dart';
 import 'package:cyberbee_web/presentation/dashboard/dashboard.dart';
 import 'package:cyberbee_web/presentation/events/events.dart';
+import 'package:cyberbee_web/presentation/message/message.dart';
 import 'package:cyberbee_web/presentation/widgets/header.dart';
 import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class MainScreen extends StatelessWidget {
 
   final List<Widget> screens = <Widget>[
     const DashBoardScreen(),
-    const Scaffold(),
+    const MessageScreen(),
     EventScreen(),
     const CourseScreen(),
   ];
