@@ -1,4 +1,6 @@
 import 'package:cyberbee_web/constants.dart';
+import 'package:cyberbee_web/presentation/message/widgets/show_users_list_widget.dart';
+import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
 
 class MessageScreen extends StatelessWidget {
@@ -7,20 +9,40 @@ class MessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 500,
+      height: 700,
       width: double.infinity,
-      child: Container(
-        color: secondaryColor,
-        child: Row(
-          children: [
-            Container(
-              width: 100,
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+          decoration: const BoxDecoration(
+            color: secondaryColor,
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                10,
+              ),
             ),
-            const VerticalDivider(),
-            Container(width: 100),
-          ],
+          ),
+          width: Responsive.getWidthRatio(
+            mobile: 400,
+            tablet: 700,
+            desktop: 850,
+            context: context,
+          ),
+          child: Row(
+            children: [
+              const ShowUsersChatWidget(),
+              if(!Responsive.isMobile(context))
+              const VerticalDivider(),
+              if(!Responsive.isMobile(context))
+              Expanded(
+                flex: 8,
+                child: Container(),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
