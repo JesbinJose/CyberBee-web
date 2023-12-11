@@ -1,15 +1,19 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/constants.dart';
+import 'package:cyberbee_web/presentation/events/widgets/event_manage_control.dart';
 import 'package:cyberbee_web/presentation/events/widgets/show_image_preview.dart';
 import 'package:flutter/material.dart';
 
 class SingleEventEdit extends StatelessWidget {
-  const SingleEventEdit({
+  SingleEventEdit({
     super.key,
     required this.event,
   });
 
   final ValueNotifier<QueryDocumentSnapshot<Object?>?> event;
+  final ValueNotifier<Uint8List?> image = ValueNotifier(null);
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +33,32 @@ class SingleEventEdit extends StatelessWidget {
         valueListenable: event,
         builder: (_, value, __) {
           if (value == null) return const SizedBox();
+          final TextEditingController controller = TextEditingController(
+            text: value['link'],
+          );
           return Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ShowSelectedEventImage(
                   value: value,
+                  image: image,
+                ),
+                TextField(
+                  controller: controller,
+                  decoration: myFormFieldInputDecoration(
+                    icon: null,
+                    hintText: 'link',
+                  ),
+                ),
+                SaveAndImageControls(
+                  image: image,
+                  controller: controller,
+                  event: event,
+                ),
+                const SizedBox(
+                  height: 50,
                 ),
               ],
             ),
