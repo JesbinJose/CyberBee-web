@@ -11,12 +11,27 @@ class MyFirebaseEvents {
 
   static Future<void> addEvent(
       Uint8List image, String link, BuildContext context) async {
-    final String? imageLink =
-        await FireBaseStorage.uploadEventImage(
+    final String? imageLink = await FireBaseStorage.uploadEventImage(
       context,
       file: image,
     );
     await _instance.collection('events').add({
+      'image': imageLink,
+      'link': link,
+    });
+  }
+
+  static Future<void> removeEvent(String eventId) async {
+    await _instance.collection('events').doc(eventId).delete();
+  }
+
+  static Future<void> updateEvent(Uint8List image, String link,
+      BuildContext context, String eventId) async {
+    final String? imageLink = await FireBaseStorage.uploadEventImage(
+      context,
+      file: image,
+    );
+    await _instance.collection('events').doc(eventId).set({
       'image': imageLink,
       'link': link,
     });

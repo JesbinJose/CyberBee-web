@@ -15,7 +15,7 @@ class MainScreen extends StatelessWidget {
   final List<Widget> screens = <Widget>[
     const DashBoardScreen(),
     const Scaffold(),
-    const EventScreen(),
+    EventScreen(),
     const CourseScreen(),
   ];
   final List<String> titles = <String>[

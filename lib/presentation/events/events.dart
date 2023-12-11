@@ -1,32 +1,25 @@
-import 'package:cyberbee_web/core/firebase/function/events/events.dart';
-import 'package:cyberbee_web/presentation/events/widgets/event_tile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cyberbee_web/presentation/events/widgets/list_all_events.dart';
+import 'package:cyberbee_web/presentation/events/widgets/single_event_edit_part.dart';
+import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
 
 class EventScreen extends StatelessWidget {
-  const EventScreen({super.key});
+  EventScreen({super.key});
+  final ValueNotifier<QueryDocumentSnapshot?> event = ValueNotifier(null);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: double.infinity,
-          height: 200,
-          child: StreamBuilder(
-            stream: MyFirebaseEvents.getAllEvents(),
-            builder: (context, snapshot) {
-              if (snapshot.data == null) return const SizedBox();
-              return ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  final event = snapshot.data!.docs[index];
-                  return EventTile(event: event);
-                },
-              );
-            },
-          ),
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: Responsive.isMobile(context)
+            ? CrossAxisAlignment.center
+            : CrossAxisAlignment.start,
+        children: [
+          ListEvents(event: event),
+          SingleEventEdit(event: event),
+        ],
+      ),
     );
   }
 }
