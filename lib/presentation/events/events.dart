@@ -1,5 +1,5 @@
-import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/function/events/events.dart';
+import 'package:cyberbee_web/presentation/events/widgets/event_tile.dart';
 import 'package:flutter/material.dart';
 
 class EventScreen extends StatelessWidget {
@@ -20,31 +20,7 @@ class EventScreen extends StatelessWidget {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   final event = snapshot.data!.docs[index];
-                  return Container(
-                    decoration: const BoxDecoration(
-                      color: secondaryColor,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          10,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(
-                              10,
-                            ),
-                          ),
-                          child: Image.network(
-                            event['image'],
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  return EventTile(event: event);
                 },
               );
             },
@@ -54,3 +30,5 @@ class EventScreen extends StatelessWidget {
     );
   }
 }
+
+
