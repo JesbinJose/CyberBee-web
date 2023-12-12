@@ -38,6 +38,7 @@ class DashboradUsersListWidget extends StatelessWidget {
                 typeName(
                   state.userType,
                 ),
+                style: const TextStyle(fontSize: 25),
               );
             },
           ),
