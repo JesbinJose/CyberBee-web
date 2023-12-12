@@ -1,4 +1,4 @@
-import 'package:cyberbee_web/presentation/widgets/profile_card.dart';
+import 'package:cyberbee_web/presentation/main/widgets/profile_card.dart';
 import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
 
