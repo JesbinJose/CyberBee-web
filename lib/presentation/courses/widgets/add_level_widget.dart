@@ -11,11 +11,13 @@ class AddLevelWidget extends StatelessWidget {
     required this.levelName,
     required this.levelNo,
     required this.courseName,
+    required this.isEdit,
   });
 
   final TextEditingController levelName;
   final TextEditingController levelNo;
   final String courseName;
+  final bool isEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class AddLevelWidget extends StatelessWidget {
               levelNo.text = "";
               GetAllCourseDetails.addLevel(level);
             },
-            content: 'Add Level',
+            content: isEdit ? 'Save' : 'Add Level',
           ),
         ],
       ),

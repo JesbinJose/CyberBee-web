@@ -12,10 +12,11 @@ class ShowCourseAsList extends StatelessWidget {
     required this.courseName,
     required this.course,
     required this.levelName,
-    required this.levelNo,
+    required this.levelNo, required this.isEdit,
   });
 
   final String courseName;
+  final bool isEdit;
   final QueryDocumentSnapshot<Object?> course;
   final TextEditingController levelName;
   final TextEditingController levelNo;
@@ -44,7 +45,7 @@ class ShowCourseAsList extends StatelessWidget {
                             first: CourseEditType.level,
                             second: CourseEditType.part,
                             course: course,
-                            levelNo: level.id,
+                            level: level,
                           ),
                         ),
                     child: Container(
@@ -71,6 +72,7 @@ class ShowCourseAsList extends StatelessWidget {
                 },
               ),
             AddLevelWidget(
+              isEdit: isEdit,
               levelName: levelName,
               levelNo: levelNo,
               courseName: courseName,

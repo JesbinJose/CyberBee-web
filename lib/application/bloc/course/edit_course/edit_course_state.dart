@@ -4,9 +4,9 @@ abstract class EditCourseState {
   final QueryDocumentSnapshot? course;
   final CourseEditType first;
   final CourseEditType second;
-  final String? levelNo;
+  final QueryDocumentSnapshot? level;
   const EditCourseState({
-    this.levelNo,
+    this.level,
     this.course,
     this.first = CourseEditType.course,
     this.second = CourseEditType.level,
@@ -23,7 +23,7 @@ final class EditCourseUpdated extends EditCourseState {
 
 final class UpdatedEditView extends EditCourseState {
   UpdatedEditView({
-    super.levelNo,
+    super.level,
     required super.course,
     required super.first,
     required super.second,

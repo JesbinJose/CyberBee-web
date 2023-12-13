@@ -6,14 +6,18 @@ import 'package:flutter/material.dart';
 class AddLevelScreen extends StatelessWidget {
   late String courseName;
   final QueryDocumentSnapshot<Object?> course;
+  final QueryDocumentSnapshot<Object?>? level;
+  late TextEditingController levelName;
+  late TextEditingController levelNo;
   AddLevelScreen({
     super.key,
     required this.course,
+    required this.level,
   }) {
     courseName = course.id;
+    levelName = TextEditingController(text: level?['level_name']);
+    levelNo = TextEditingController(text: level?.id);
   }
-  final TextEditingController levelName = TextEditingController();
-  final TextEditingController levelNo = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +32,9 @@ class AddLevelScreen extends StatelessWidget {
           course: course,
           levelName: levelName,
           levelNo: levelNo,
+          isEdit: level != null,
         ),
       ),
     );
   }
 }
-

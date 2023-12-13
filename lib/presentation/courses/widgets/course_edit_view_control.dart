@@ -13,15 +13,17 @@ class CourseEditView extends StatelessWidget {
     required this.type,
     this.isFirst = true,
     required this.course,
-    this.levelNo,
+    this.level,
   }) {
     courseId = course?.id;
+    levelNo = level?.id;
   }
   final QueryDocumentSnapshot<Object?>? course;
+  final QueryDocumentSnapshot<Object?>? level;
   final CourseEditType type;
   late String? courseId;
   final bool isFirst;
-  final String? levelNo;
+  late String? levelNo;
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +45,12 @@ class CourseEditView extends StatelessWidget {
       case CourseEditType.level:
         return AddLevelScreen(
           course: course!,
+          level: level,
         );
       case CourseEditType.part:
         return AddPartsScreen(
           courseName: courseId!,
-          levelNo: levelNo??'01',
+          levelNo: levelNo ?? '01',
         );
       default:
         return const SizedBox();

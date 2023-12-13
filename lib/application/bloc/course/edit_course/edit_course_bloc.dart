@@ -19,7 +19,7 @@ class EditCourseBloc extends Bloc<EditCourseEvent, EditCourseState> {
           first: event.first,
           second: event.second,
           course: event.course,
-          levelNo: event.levelNo,
+          level: event.level,
         ),
       );
     });

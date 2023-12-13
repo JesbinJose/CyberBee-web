@@ -54,11 +54,13 @@ class EditCourseWidget extends StatelessWidget {
                         ? CourseEditView(
                             type: state.first,
                             course: state.course,
+                            level: state.level,
                           )
                         : CourseEditView(
                             type: state.second,
                             course: state.course,
                             isFirst: false,
+                            level: state.level,
                           );
                   },
                 ),
