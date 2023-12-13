@@ -10,16 +10,18 @@ class CourseListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController controller = ScrollController(
+      initialScrollOffset: -1000,
+    );
     return SizedBox(
-      width: double.infinity,
       height: 200,
       child: StreamBuilder<QuerySnapshot<Object?>>(
         stream: GetAllCourseDetails.getCourses(),
         builder: (context, snapshot) {
           if (snapshot.data == null) return const SizedBox();
           return ListView.builder(
+            controller: controller,
             scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
             itemBuilder: (context, index) {
               final course = snapshot.data!.docs[index];
               return SingleCourseTile(

@@ -14,21 +14,21 @@ class SingleCourseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => context.read<EditCourseBloc>().add(
-            ChangeCourse(course: course,),
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            10,
           ),
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              10,
-            ),
-          ),
-          color: secondaryColor,
         ),
-        padding: const EdgeInsets.all(defaultPadding),
-        margin: const EdgeInsets.all(defaultPadding),
+        color: secondaryColor,
+      ),
+      padding: const EdgeInsets.all(defaultPadding),
+      margin: const EdgeInsets.all(defaultPadding),
+      child: InkWell(
+        onTap: () => context.read<EditCourseBloc>().add(
+              ChangeCourse(course: course,),
+            ),
         child: Column(
           children: [
             ClipRRect(
