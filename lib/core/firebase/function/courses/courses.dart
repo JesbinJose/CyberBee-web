@@ -17,7 +17,14 @@ class GetAllCourseDetails {
     return _instance.doc(courseId).snapshots();
   }
 
-  static Future<void> addCourse(MyCourse course) async {
+  static Future<QueryDocumentSnapshot<Object?>> getACourse() async {
+    return (await _instance.get()).docs[2];
+  }
+
+  static Future<void> addCourse(MyCourse course, String? oldCourseName) async {
+    if (oldCourseName != null) {
+      await deleteCourse(oldCourseName);
+    }
     Map<String, dynamic> data = {
       'description': course.description,
       'amount': course.amount,
@@ -63,9 +70,9 @@ class GetAllCourseDetails {
         .doc(videoPart.partNo)
         .set({
       'type': 'video',
-      'partName':videoPart.partName,
-      'description':videoPart.description,
-      'url':videoPart.videoUrl,
+      'partName': videoPart.partName,
+      'description': videoPart.description,
+      'url': videoPart.videoUrl,
     });
   }
 
@@ -81,10 +88,10 @@ class GetAllCourseDetails {
         .collection('parts')
         .doc(pdfPart.partNo)
         .set({
-      'type': 'video',
-      'partName':pdfPart.partName,
-      'description':pdfPart.description,
-      'url':pdfPart.pdfUrl,
+      'type': 'pdf',
+      'partName': pdfPart.partName,
+      'description': pdfPart.description,
+      'url': pdfPart.pdfUrl,
     });
   }
 
@@ -93,4 +100,8 @@ class GetAllCourseDetails {
     required String levelName,
     required Quiz quizPart,
   }) async {}
+
+  static Future<void> deleteCourse(String courseName) async {
+    await _instance.doc(courseName).delete();
+  }
 }

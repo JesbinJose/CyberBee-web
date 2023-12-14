@@ -8,7 +8,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
+  try {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
+  } catch (e) {
+    print(e);
+  }
   runApp(const MyApp());
 }
 

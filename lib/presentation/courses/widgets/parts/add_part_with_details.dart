@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/course_models.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/parts/dif_parts/exam.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/parts/dif_parts/pdf.dart';
@@ -5,19 +6,39 @@ import 'package:cyberbee_web/presentation/courses/widgets/parts/dif_parts/videos
 import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AddPartToLevelInputScreen extends StatelessWidget {
   AddPartToLevelInputScreen({
     super.key,
     required this.course,
     required this.levelNo,
-  });
+    required this.part,
+  }) {
+    late PartType type;
+    switch (part?['type']) {
+      case 'pdf':
+        type = PartType.pdf;
+        break;
+      case 'exam':
+        type = PartType.exam;
+        break;
+      default:
+        type = PartType.video;
+        break;
+    }
+    _partName = TextEditingController(text: part?['partName']);
+    _partNo = TextEditingController(text: part?.id);
+    _description = TextEditingController(text: part?['description']);
+    _type = ValueNotifier<PartType>(type);
+  }
   final String course;
   final String levelNo;
-  final TextEditingController _partName = TextEditingController();
-  final TextEditingController _partNo = TextEditingController();
-  final TextEditingController _description = TextEditingController();
+  late TextEditingController _partName;
+  late TextEditingController _partNo;
+  late TextEditingController _description;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final ValueNotifier<PartType> _type = ValueNotifier<PartType>(PartType.video);
+  late ValueNotifier<PartType> _type;
+  final QueryDocumentSnapshot? part;
 
   @override
   Widget build(BuildContext context) {

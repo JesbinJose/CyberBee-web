@@ -45,6 +45,7 @@ dependencies:
   meta: ^1.9.1
   bloc: ^8.1.2
   image_picker: ^1.0.4
+  firebase_messaging: ^14.7.9
 
 dev_dependencies:
   flutter_test:
