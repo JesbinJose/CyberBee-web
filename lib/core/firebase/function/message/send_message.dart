@@ -18,7 +18,7 @@ class SendPushNotification {
         "body": message,
       },
     };
-    var url = Uri.parse('https://fcm.googleapis.com/fcm/send');
+    var url = Uri.parse(PushNKey.url);
     try {
       await http
           .post(
