@@ -53,7 +53,7 @@ class SaveAndImageControls extends StatelessWidget {
               }
             }
           },
-          content: 'Save',
+          content: event.value == null ? 'Add' : 'Save',
         ),
         const SizedBox(
           width: 1,

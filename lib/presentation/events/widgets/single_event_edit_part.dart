@@ -2,8 +2,10 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/constants.dart';
+import 'package:cyberbee_web/core/firebase/function/events/events.dart';
 import 'package:cyberbee_web/presentation/events/widgets/event_manage_control.dart';
 import 'package:cyberbee_web/presentation/events/widgets/show_image_preview.dart';
+import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 
 class SingleEventEdit extends StatelessWidget {
@@ -56,6 +58,14 @@ class SingleEventEdit extends StatelessWidget {
                   controller: controller,
                   event: event,
                 ),
+                if (event.value != null)
+                  CustomTextButton(
+                    onTap: () async {
+                      MyFirebaseEvents.removeEvent(event.value!.id);
+                      event.value = null;
+                    },
+                    content: 'Delete',
+                  ),
                 const SizedBox(
                   height: 50,
                 ),
