@@ -9,7 +9,7 @@ class EventTile extends StatelessWidget {
     required this.valueNotifier,
   });
 
-  final QueryDocumentSnapshot<Object?> event;
+  final QueryDocumentSnapshot<Object?>? event;
   final ValueNotifier<QueryDocumentSnapshot?> valueNotifier;
 
   @override
@@ -34,12 +34,32 @@ class EventTile extends StatelessWidget {
                   10,
                 ),
               ),
-              child: Image.network(
-                event['image'],
-                width: 200,
-                height: 120,
-                fit: BoxFit.cover,
-              ),
+              child: event != null
+                  ? Image.network(
+                      event!['image'],
+                      width: 200,
+                      height: 120,
+                      fit: BoxFit.cover,
+                    )
+                  : SizedBox(
+                      width: 200,
+                      height: 120,
+                      child: Center(
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50),
+                            ),
+                            color: primaryColor,
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
             ),
           ],
         ),

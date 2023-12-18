@@ -22,9 +22,9 @@ class ListEvents extends StatelessWidget {
           return ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
-            itemCount: snapshot.data!.docs.length,
+            itemCount: snapshot.data!.docs.length + 1,
             itemBuilder: (context, index) {
-              final event = snapshot.data!.docs[index];
+              final event = index != 0 ? snapshot.data!.docs[index-1] : null;
               return EventTile(
                 event: event,
                 valueNotifier: this.event,

@@ -32,9 +32,8 @@ class SingleEventEdit extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: event,
         builder: (_, value, __) {
-          if (value == null) return const SizedBox();
           final TextEditingController controller = TextEditingController(
-            text: value['link'],
+            text: value?['link'],
           );
           return Padding(
             padding: const EdgeInsets.all(10),

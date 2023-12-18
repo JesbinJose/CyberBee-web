@@ -9,7 +9,7 @@ class ShowSelectedEventImage extends StatelessWidget {
     required this.value,
     required this.image,
   });
-  final QueryDocumentSnapshot<Object?> value;
+  final QueryDocumentSnapshot<Object?>? value;
   final ValueNotifier<Uint8List?> image;
 
   @override
@@ -41,10 +41,16 @@ class ShowSelectedEventImage extends StatelessWidget {
                     image.value!,
                     fit: BoxFit.cover,
                   )
-                : Image.network(
-                    value['image'],
-                    fit: BoxFit.cover,
-                  ),
+                : value != null
+                    ? Image.network(
+                        value!['image'],
+                        fit: BoxFit.cover,
+                      )
+                    : const Center(
+                        child: Text(
+                          'No image selected',
+                        ),
+                      ),
           );
         },
       ),

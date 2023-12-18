@@ -1,4 +1,3 @@
-
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,12 +37,20 @@ class SaveAndImageControls extends StatelessWidget {
         CustomTextButton(
           onTap: () async {
             if (image.value != null && controller.text.isNotEmpty) {
-              MyFirebaseEvents.updateEvent(
-                image.value!,
-                controller.text,
-                context,
-                event.value!.id,
-              );
+              if (event.value == null) {
+                MyFirebaseEvents.addEvent(
+                  image.value!,
+                  controller.text,
+                  context,
+                );
+              } else {
+                MyFirebaseEvents.updateEvent(
+                  image.value!,
+                  controller.text,
+                  context,
+                  event.value!.id,
+                );
+              }
             }
           },
           content: 'Save',
