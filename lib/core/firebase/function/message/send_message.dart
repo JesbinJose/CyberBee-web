@@ -1,11 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/core/firebase/firebase_option/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class SendPushNotification {
+  Future<void> sendAllNotification(String title, String message) async {
+    final devices = await FirebaseFirestore.instance.collection('users').get();
+    for (var device in devices.docs) {
+      try {
+        sendMessage(
+          title: title,
+          message: message,
+          toUserId: device['messageId'],
+        );
+      } catch (_) {}
+    }
+  }
+
   Future<void> sendMessage({
     required String title,
     required String message,

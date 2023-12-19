@@ -10,9 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
-  } catch (e) {
-    print(e);
-  }
+  } catch (_) {}
   runApp(const MyApp());
 }
 

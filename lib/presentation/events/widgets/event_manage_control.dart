@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/application/image/pick_image.dart';
 import 'package:cyberbee_web/core/firebase/function/events/events.dart';
+import 'package:cyberbee_web/core/firebase/function/message/send_message.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 
@@ -52,6 +53,10 @@ class SaveAndImageControls extends StatelessWidget {
                 );
               }
             }
+            await SendPushNotification().sendAllNotification(
+              'New Event',
+              'There is a new event , Check out',
+            );
           },
           content: event.value == null ? 'Add' : 'Save',
         ),
