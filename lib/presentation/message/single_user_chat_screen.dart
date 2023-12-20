@@ -1,3 +1,4 @@
+import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat_models.dart';
 import 'package:cyberbee_web/presentation/message/widgets/message_send_part.dart';
@@ -55,9 +56,14 @@ class SingleUserChatScreen extends StatelessWidget {
                 if (v == null) return const SizedBox();
                 return Align(
                   alignment: Alignment.bottomCenter,
-                  child: SizedBox(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    color: secondaryColor,
                     width: double.infinity,
-                    height: 60,
+                    constraints: const BoxConstraints(
+                      minHeight: 70,
+                      maxHeight: 200,
+                    ),
                     child: BottomMessageSendPart(
                       userId: v,
                     ),

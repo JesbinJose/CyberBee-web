@@ -1,5 +1,4 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat_models.dart';
@@ -46,7 +45,7 @@ class BottomMessageSendPart extends StatelessWidget {
               if (message.text.isNotEmpty) {
                 final Message message = Message(
                   touserId: '',
-                  dateAndTime: Timestamp.now(),
+                  dateAndTime: DateTime.now(),
                   message: this.message.text,
                   fromUserId: userId,
                 );

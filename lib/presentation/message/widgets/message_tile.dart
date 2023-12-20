@@ -1,4 +1,3 @@
-
 import 'package:cyberbee_web/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -17,9 +16,7 @@ class SingleMessageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: isuser
-          ? Alignment.centerRight
-          : Alignment.centerLeft,
+      alignment: isuser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         constraints: const BoxConstraints(maxWidth: 300),
         margin: const EdgeInsets.symmetric(
@@ -30,24 +27,53 @@ class SingleMessageTile extends StatelessWidget {
           vertical: 5,
         ),
         decoration: BoxDecoration(
-          color: isuser
-              ? primaryColor
-              : Colors.white,
+          color: isuser ? primaryColor : Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(10),
             topRight: const Radius.circular(10),
-            bottomLeft: isuser
-                ? const Radius.circular(10)
-                : Radius.zero,
-            bottomRight: isuser
-                ? Radius.zero
-                : const Radius.circular(10),
+            bottomLeft: isuser ? const Radius.circular(10) : Radius.zero,
+            bottomRight: isuser ? Radius.zero : const Radius.circular(10),
           ),
         ),
-        child: Text(
-          message.message,
+        child: Column(
+          crossAxisAlignment:
+              isuser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  constraints: const BoxConstraints(
+                    maxWidth: 280,
+                    minWidth: 40,
+                  ),
+                  child: Text(
+                    message.message,
+                    textAlign: message.message.length < 10 && !isuser
+                        ? TextAlign.right
+                        : TextAlign.left,
+                    style: TextStyle(
+                      color: !isuser ? Colors.black : Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              getDateandTime('${message.dateAndTime}'),
+              style: TextStyle(
+                color: !isuser ? Colors.black : Colors.white,
+                fontSize: 7,
+              ),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  String getDateandTime(String dateAndTime) {
+    return dateAndTime.split('.').first.split(' ').last.substring(0, 5);
   }
 }
