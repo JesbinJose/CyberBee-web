@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cyberbee_web/application/bloc/course/edit_course/edit_course_bloc.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/course_models.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GetAllCourseDetails {
   static final CollectionReference _instance =
@@ -21,10 +24,15 @@ class GetAllCourseDetails {
     return (await _instance.get()).docs[2];
   }
 
-  static Future<void> addCourse(MyCourse course, String? oldCourseName) async {
+  static Future<void> addCourse(
+      MyCourse course, String? oldCourseName, final context) async {
     if (oldCourseName != null) {
-      await deleteCourse(oldCourseName);
+      context.read<EditCourseBloc>().add(ChangeCourse(course: null));
+      try {
+        await deleteCourse(oldCourseName);
+      } catch (_) {}
     }
+    Navigator.pop(context);
     Map<String, dynamic> data = {
       'description': course.description,
       'amount': course.amount,
@@ -33,7 +41,9 @@ class GetAllCourseDetails {
       'intro_image': course.introImageLink,
       'levels_number': course.levelsNumber,
     };
-    _instance.doc(course.courseName).set(data);
+    try {
+      _instance.doc(course.courseName).set(data);
+    } catch (_) {}
   }
 
   static Stream<QuerySnapshot> getAllLevels(String courseName) {

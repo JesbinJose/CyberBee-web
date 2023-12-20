@@ -4,7 +4,7 @@ part of 'edit_course_bloc.dart';
 abstract class EditCourseEvent {}
 
 class ChangeCourse extends EditCourseEvent {
-  final QueryDocumentSnapshot course;
+  final QueryDocumentSnapshot? course;
   ChangeCourse({required this.course});
 }
 

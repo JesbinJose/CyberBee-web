@@ -10,6 +10,7 @@ class CustomTextFormField extends StatelessWidget {
     this.textInputAction,
     this.minLine,
     this.maxLine = 1,
+    this.readOnly= false,
   }) : _courseName = controller;
 
   final String hintText;
@@ -18,10 +19,12 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final int? minLine;
   final int? maxLine;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readOnly,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       minLines: minLine,
       maxLines: maxLine,

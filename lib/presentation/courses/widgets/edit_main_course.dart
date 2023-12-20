@@ -44,31 +44,41 @@ class AddCourseScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(height: 20),
               if (course != null)
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    onPressed: () async {
-                      await GetAllCourseDetails.deleteCourse(
-                        course!.id,
-                      );
-                      await GetAllCourseDetails.getACourse().then(
-                        (value) => context.read<EditCourseBloc>().add(
-                              ChangeEditType(
-                                course: value,
-                                first: CourseEditType.course,
-                                second: CourseEditType.level,
-                              ),
-                            ),
-                      );
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.delete,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const SizedBox(
+                      width: 300,
+                      child: Text(
+                        'By deleting the course the all the data can\'t be recovered',
+                      ),
                     ),
-                  ),
+                    IconButton(
+                      onPressed: () async {
+                        await GetAllCourseDetails.deleteCourse(
+                          course!.id,
+                        );
+                        await GetAllCourseDetails.getACourse().then(
+                          (value) => context.read<EditCourseBloc>().add(
+                                ChangeEditType(
+                                  course: value,
+                                  first: CourseEditType.course,
+                                  second: CourseEditType.level,
+                                ),
+                              ),
+                        );
+                      },
+                      icon: const Icon(
+                        CupertinoIcons.delete,
+                      ),
+                    ),
+                  ],
                 ),
               const SizedBox(height: 30),
               CustomTextFormField(
+                readOnly: course!=null,
                 controller: _courseName,
                 hintText: 'Course Name',
               ),
@@ -123,10 +133,11 @@ class AddCourseScreen extends StatelessWidget {
                         introVideo: _introVideo.text,
                         introImageLink: imageLink ?? this.imageLink!,
                       );
+                      // ignore: use_build_context_synchronously
                       await GetAllCourseDetails.addCourse(
-                              course, this.course?.id)
-                          .then(
-                        (_) => Navigator.pop(context),
+                        course,
+                        this.course?.id,
+                        context,
                       );
                     }
                   }
