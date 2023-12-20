@@ -1,6 +1,7 @@
 import 'package:cyberbee_web/application/bloc/dashboard/manage_each_users/manage_single_user_dash_board_bloc.dart';
 import 'package:cyberbee_web/application/type_check.dart';
 import 'package:cyberbee_web/constants.dart';
+import 'package:cyberbee_web/presentation/widgets/single_profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,26 +42,7 @@ class ShowUsersByTypeWidget extends StatelessWidget {
                         user: user,
                       ),
                     ),
-                leading: Container(
-                  width: 40,
-                  height: 40,
-                  padding: const EdgeInsets.all(2),
-                  decoration: const BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    child: Image.network(
-                      user['profile_pic'],
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                leading: CircleProfileView(profileUrl: user['profile_pic']),
                 title: Text(
                   user['username'],
                 ),

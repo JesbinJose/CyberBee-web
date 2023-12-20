@@ -17,9 +17,4 @@ class ChatControls {
   Stream<QuerySnapshot<Map<String, dynamic>>> getMessages(String userId) {
     return instance.doc('toAdmin').collection(userId).snapshots();
   }
-
-  Stream<DocumentSnapshot<Map<String, dynamic>>> getAllMessages() {
-    return instance.doc('toAdmin').snapshots();
-  }
-  
 }

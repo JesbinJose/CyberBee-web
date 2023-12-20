@@ -1,10 +1,13 @@
 import 'package:cyberbee_web/constants.dart';
+import 'package:cyberbee_web/presentation/message/single_user_chat_screen.dart';
 import 'package:cyberbee_web/presentation/message/widgets/show_users_list_widget.dart';
 import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
 
 class MessageScreen extends StatelessWidget {
-  const MessageScreen({super.key});
+  MessageScreen({super.key});
+
+  final ValueNotifier<String?> user = ValueNotifier(null);
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +33,10 @@ class MessageScreen extends StatelessWidget {
           ),
           child: Row(
             children: [
-              const ShowUsersChatWidget(),
-              if(!Responsive.isMobile(context))
-              const VerticalDivider(),
-              if(!Responsive.isMobile(context))
-              Expanded(
-                flex: 8,
-                child: Container(),
-              ),
+              ShowUsersChatWidget(user: user),
+              if (!Responsive.isMobile(context)) const VerticalDivider(),
+              if (!Responsive.isMobile(context))
+                SingleUserChatScreen(chats: user),
             ],
           ),
         ),
@@ -45,4 +44,3 @@ class MessageScreen extends StatelessWidget {
     );
   }
 }
-
