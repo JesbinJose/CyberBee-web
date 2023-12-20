@@ -1,4 +1,4 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat_models.dart';
@@ -41,7 +41,7 @@ class BottomMessageSendPart extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
           child: InkWell(
-            onTap: () {
+            onTap: () async {
               if (message.text.isNotEmpty) {
                 final Message message = Message(
                   touserId: '',
@@ -49,7 +49,12 @@ class BottomMessageSendPart extends StatelessWidget {
                   message: this.message.text.trim(),
                   fromUserId: userId,
                 );
-                ChatControls().sendMessageToAdmin(message);
+                final messageId = (await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(userId)
+                        .get())
+                    .data()?['messageId'];
+                ChatControls().sendMessageToAdmin(message, messageId);
                 this.message.text = '';
               }
             },

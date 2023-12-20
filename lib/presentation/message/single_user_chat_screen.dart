@@ -30,9 +30,12 @@ class SingleUserChatScreen extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.data == null) return const SizedBox();
                       return ListView.separated(
+                        reverse: true,
+                        controller: ScrollController(),
+                        padding: const EdgeInsets.only(bottom: 80),
                         itemBuilder: (context, index) {
                           final Message message =
-                              Message.fromMap(snapshot.data!.docs[index]);
+                              Message.fromMap(snapshot.data!.docs.reversed.toList()[index]);
                           return SingleMessageTile(
                             isuser: message.touserId != 'true',
                             message: message,
