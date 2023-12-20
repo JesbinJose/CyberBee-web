@@ -46,7 +46,7 @@ class BottomMessageSendPart extends StatelessWidget {
                 final Message message = Message(
                   touserId: '',
                   dateAndTime: DateTime.now(),
-                  message: this.message.text,
+                  message: this.message.text.trim(),
                   fromUserId: userId,
                 );
                 ChatControls().sendMessageToAdmin(message);
