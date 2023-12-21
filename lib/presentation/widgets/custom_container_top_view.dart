@@ -2,7 +2,11 @@ import 'package:cyberbee_web/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomTopViewContainer extends StatelessWidget {
-  const CustomTopViewContainer({super.key, required this.onTap, required this.child,});
+  const CustomTopViewContainer({
+    super.key,
+    required this.onTap,
+    required this.child,
+  });
   final VoidCallback onTap;
   final Widget child;
 

@@ -1,17 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cyberbee_web/application/bloc/course/edit_course/edit_course_bloc.dart';
-import 'package:cyberbee_web/constants.dart';
-import 'package:cyberbee_web/core/firebase/function/courses/course_models.dart';
-import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
-import 'package:cyberbee_web/core/firebase_storage/upload_image.dart';
+import 'package:cyberbee_web/presentation/courses/widgets/delete_course.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/pick_image_control.dart';
-import 'package:cyberbee_web/presentation/widgets/custom_loading.dart';
-import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
+import 'package:cyberbee_web/presentation/courses/widgets/submit_button.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class AddCourseScreen extends StatelessWidget {
@@ -45,37 +40,7 @@ class AddCourseScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
-              if (course != null)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const SizedBox(
-                      width: 300,
-                      child: Text(
-                        'By deleting the course the all the data can\'t be recovered',
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () async {
-                        await GetAllCourseDetails.deleteCourse(
-                          course!.id,
-                        );
-                        await GetAllCourseDetails.getACourse().then(
-                          (value) => context.read<EditCourseBloc>().add(
-                                ChangeEditType(
-                                  course: value,
-                                  first: CourseEditType.course,
-                                  second: CourseEditType.level,
-                                ),
-                              ),
-                        );
-                      },
-                      icon: const Icon(
-                        CupertinoIcons.delete,
-                      ),
-                    ),
-                  ],
-                ),
+              if (course != null) DeleteCoursePart(course: course),
               const SizedBox(height: 30),
               CustomTextFormField(
                 readOnly: course != null,
@@ -106,6 +71,7 @@ class AddCourseScreen extends StatelessWidget {
                 controller: _amount,
                 hintText: 'Amount',
                 inputType: TextInputType.number,
+                isNumOnly: true,
                 validator: (v) {
                   if (v == null || v.isEmpty) {
                     return 'Amount is required';
@@ -115,14 +81,27 @@ class AddCourseScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
+                isNumOnly: true,
                 controller: _discount,
                 hintText: 'Discount',
                 inputType: TextInputType.number,
+                validator: (v) {
+                  if (v == null || v.isEmpty) {
+                    return 'Amount is required';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
                 controller: _introVideo,
                 hintText: 'Intro Video Link',
+                validator: (v) {
+                  if (v == null || v.isEmpty) {
+                    return 'Amount is required';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               PickImageControl(
@@ -130,37 +109,16 @@ class AddCourseScreen extends StatelessWidget {
                 urlImageLink: imageLink,
               ),
               const SizedBox(height: 30),
-              CustomTextButton(
-                onTap: () async {
-                  if (_formKey.currentState!.validate()) {
-                    if (_intoImageLink.value != null || imageLink != null) {
-                      showLoading(context);
-                      String? imageLink;
-                      if (_intoImageLink.value != null) {
-                        imageLink = await FireBaseStorage.upladCourseImage(
-                          context,
-                          file: _intoImageLink.value!,
-                          courseId: _courseName.text,
-                        );
-                      }
-                      MyCourse course = MyCourse(
-                        courseName: _courseName.text,
-                        description: _description.text,
-                        amount: int.parse(_amount.text),
-                        discount: int.parse(_discount.text),
-                        introVideo: _introVideo.text,
-                        introImageLink: imageLink ?? this.imageLink!,
-                      );
-                      // ignore: use_build_context_synchronously
-                      await GetAllCourseDetails.addCourse(
-                        course,
-                        this.course?.id,
-                        context,
-                      );
-                    }
-                  }
-                },
-                content: course == null ? 'Add course' : 'Save changes',
+              SubmitButton(
+                formKey: _formKey,
+                intoImageLink: _intoImageLink,
+                imageLink: imageLink,
+                courseName: _courseName,
+                description: _description,
+                amount: _amount,
+                discount: _discount,
+                introVideo: _introVideo,
+                course: course,
               ),
               const SizedBox(height: 30),
             ],
