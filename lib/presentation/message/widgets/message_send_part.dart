@@ -19,7 +19,12 @@ class BottomMessageSendPart extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: Responsive.isTablet(context) ? 300 : 350,
+          width: Responsive.getWidthRatio(
+            mobile: 260,
+            tablet: 280,
+            desktop: 300,
+            context: context,
+          ),
           child: TextField(
             controller: message,
             minLines: 1,

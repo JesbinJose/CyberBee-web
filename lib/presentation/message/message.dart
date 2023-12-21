@@ -33,7 +33,16 @@ class MessageScreen extends StatelessWidget {
           ),
           child: Row(
             children: [
-              ShowUsersChatWidget(user: user),
+              ValueListenableBuilder(
+                valueListenable: user,
+                builder: (context, v, _) {
+                  if (!Responsive.isMobile(context) ||
+                      (Responsive.isMobile(context) && v == null)) {
+                    return ShowUsersChatWidget(user: user);
+                  }
+                  return SingleUserChatScreen(chats: user);
+                },
+              ),
               if (!Responsive.isMobile(context)) const VerticalDivider(),
               if (!Responsive.isMobile(context))
                 SingleUserChatScreen(chats: user),

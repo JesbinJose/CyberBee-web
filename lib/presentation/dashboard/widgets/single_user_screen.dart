@@ -39,68 +39,70 @@ class SingleUserScreen extends StatelessWidget {
           ),
         ),
       ),
-      child: Column(
-        children: [
-          ProfilePicSection(
-            profilePicUrl: user['profile_pic'],
-          ),
-          UserProfileDetailsTile(
-            title: 'Username',
-            subtitle: user['username'],
-          ),
-          StreamBuilder(
-            stream: UserDetails(userId: user.id).getAllCourseInProgress(),
-            builder: (context, snapshot) {
-              final List<String> courses = [];
-              if (snapshot.data != null) {
-                for (var corse in snapshot.data!.docs) {
-                  courses.add(corse.id);
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ProfilePicSection(
+              profilePicUrl: user['profile_pic'],
+            ),
+            UserProfileDetailsTile(
+              title: 'Username',
+              subtitle: user['username'],
+            ),
+            StreamBuilder(
+              stream: UserDetails(userId: user.id).getAllCourseInProgress(),
+              builder: (context, snapshot) {
+                final List<String> courses = [];
+                if (snapshot.data != null) {
+                  for (var corse in snapshot.data!.docs) {
+                    courses.add(corse.id);
+                  }
                 }
-              }
-              return UserProfileDetailsTile(
-                title: 'Coures Taken',
-                subtitle: courses.join('\n'),
-              );
-            },
-          ),
-          const SizedBox(height: 30),
-          if (user.id != '')
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Text('Change access'),
-                ChangeUserAccessButton(
-                  usertype: usertype,
-                ),
-                CustomTextButton(
-                  onTap: () async => await UserDetailsForAdmin.changeAccess(
-                    userId: user.id,
-                    isAdmin: usertype.value == UserType.admin,
-                    isTutor: usertype.value == UserType.tutor,
+                return UserProfileDetailsTile(
+                  title: 'Coures Taken',
+                  subtitle: courses.join('\n'),
+                );
+              },
+            ),
+            const SizedBox(height: 30),
+            if (user.id != '')
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Text('Change access'),
+                  ChangeUserAccessButton(
+                    usertype: usertype,
                   ),
-                  content: 'Save',
+                  CustomTextButton(
+                    onTap: () async => await UserDetailsForAdmin.changeAccess(
+                      userId: user.id,
+                      isAdmin: usertype.value == UserType.admin,
+                      isTutor: usertype.value == UserType.tutor,
+                    ),
+                    content: 'Save',
+                  ),
+                ],
+              ),
+            const SizedBox(height: defaultPadding),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CustomTextButton(
+                  onTap: () {
+                    UserDetailsForAdmin.deleteUser(
+                      user['username'],
+                      user.id,
+                    );
+                  },
+                  content: 'Delete',
+                ),
+                const SizedBox(
+                  width: 45,
                 ),
               ],
             ),
-          const SizedBox(height: defaultPadding),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              CustomTextButton(
-                onTap: () {
-                  UserDetailsForAdmin.deleteUser(
-                    user['username'],
-                    user.id,
-                  );
-                },
-                content: 'Delete',
-              ),
-              const SizedBox(
-                width: 45,
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

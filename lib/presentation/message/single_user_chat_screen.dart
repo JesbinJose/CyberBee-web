@@ -3,6 +3,7 @@ import 'package:cyberbee_web/core/firebase/chat/chat.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat_models.dart';
 import 'package:cyberbee_web/presentation/message/widgets/message_send_part.dart';
 import 'package:cyberbee_web/presentation/message/widgets/message_tile.dart';
+import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
 
 class SingleUserChatScreen extends StatelessWidget {
@@ -34,8 +35,9 @@ class SingleUserChatScreen extends StatelessWidget {
                         controller: ScrollController(),
                         padding: const EdgeInsets.only(bottom: 80),
                         itemBuilder: (context, index) {
-                          final Message message =
-                              Message.fromMap(snapshot.data!.docs.reversed.toList()[index]);
+                          final Message message = Message.fromMap(
+                            snapshot.data!.docs.reversed.toList()[index],
+                          );
                           return SingleMessageTile(
                             isuser: message.touserId != 'true',
                             message: message,
@@ -53,6 +55,8 @@ class SingleUserChatScreen extends StatelessWidget {
                 },
               ),
             ),
+            if(Responsive.isMobile(context))
+            ChatBackButton(chats: chats),
             ValueListenableBuilder(
               valueListenable: chats,
               builder: (context, v, _) {
@@ -76,6 +80,35 @@ class SingleUserChatScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ChatBackButton extends StatelessWidget {
+  const ChatBackButton({
+    super.key,
+    required this.chats,
+  });
+
+  final ValueNotifier<String?> chats;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      width: double.infinity,
+      color: secondaryColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          IconButton(
+            onPressed: () {
+              chats.value = null;
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
+        ],
       ),
     );
   }
