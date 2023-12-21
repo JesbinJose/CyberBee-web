@@ -24,7 +24,7 @@ class ListEvents extends StatelessWidget {
             shrinkWrap: true,
             itemCount: snapshot.data!.docs.length + 1,
             itemBuilder: (context, index) {
-              final event = index != 0 ? snapshot.data!.docs[index-1] : null;
+              final event = index != 0 ? snapshot.data!.docs[index - 1] : null;
               return EventTile(
                 event: event,
                 valueNotifier: this.event,

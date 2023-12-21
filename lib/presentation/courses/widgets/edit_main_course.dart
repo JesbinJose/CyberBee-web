@@ -78,15 +78,27 @@ class AddCourseScreen extends StatelessWidget {
                 ),
               const SizedBox(height: 30),
               CustomTextFormField(
-                readOnly: course!=null,
+                readOnly: course != null,
                 controller: _courseName,
                 hintText: 'Course Name',
+                validator: (v) {
+                  if (v == null || v.isEmpty) {
+                    return 'Course Name is required';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
                 controller: _description,
                 hintText: 'Description',
                 minLine: 5,
+                validator: (v) {
+                  if (v == null || v.isEmpty) {
+                    return 'Description is required';
+                  }
+                  return null;
+                },
                 maxLine: null,
               ),
               const SizedBox(height: 20),
@@ -94,6 +106,12 @@ class AddCourseScreen extends StatelessWidget {
                 controller: _amount,
                 hintText: 'Amount',
                 inputType: TextInputType.number,
+                validator: (v) {
+                  if (v == null || v.isEmpty) {
+                    return 'Amount is required';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               CustomTextFormField(

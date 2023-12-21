@@ -10,10 +10,14 @@ class CustomTextFormField extends StatelessWidget {
     this.textInputAction,
     this.minLine,
     this.maxLine = 1,
-    this.readOnly= false,
+    this.readOnly = false,
+     this.validator,
+    this.onChanged,
   }) : _courseName = controller;
 
   final String hintText;
+  final Function(String?)? validator;
+  final Function(String?)? onChanged;
   final TextEditingController _courseName;
   final TextInputType inputType;
   final TextInputAction? textInputAction;
@@ -24,6 +28,11 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: (value) {
+        if (onChanged != null) {
+          onChanged!(value);
+        }
+      },
       readOnly: readOnly,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       minLines: minLine,
@@ -35,12 +44,7 @@ class CustomTextFormField extends StatelessWidget {
         icon: null,
         hintText: hintText,
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'this field is empty';
-        }
-        return null;
-      },
+      validator: (v) => validator!(v),
     );
   }
 }
