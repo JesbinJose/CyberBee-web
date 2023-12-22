@@ -12,12 +12,13 @@ class ShowCourseAsList extends StatelessWidget {
     required this.courseName,
     required this.course,
     required this.levelName,
-    required this.levelNo, required this.isEdit,
+    required this.levelNo,
+    required this.isEdit,
   });
 
   final String courseName;
   final bool isEdit;
-  final QueryDocumentSnapshot<Object?> course;
+  final DocumentSnapshot<Object?> course;
   final TextEditingController levelName;
   final TextEditingController levelNo;
 
@@ -30,7 +31,10 @@ class ShowCourseAsList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10,),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
               child: Text("Course - $courseName"),
             ),
             if (snapshot.data != null)
@@ -61,11 +65,16 @@ class ShowCourseAsList extends StatelessWidget {
                           ),
                         ),
                       ),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          level['level_name'],
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            level['level_name'],
+                          ),
+                          Text(
+                            level.id,
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -76,6 +85,7 @@ class ShowCourseAsList extends StatelessWidget {
               levelName: levelName,
               levelNo: levelNo,
               courseName: courseName,
+              course: course,
             ),
           ],
         );

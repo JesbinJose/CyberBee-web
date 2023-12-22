@@ -58,11 +58,16 @@ class AddPartsScreen extends StatelessWidget {
                             Radius.circular(10),
                           ),
                         ),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            part['partName'],
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              part['partName'],
+                            ),
+                            Text(
+                              part.id,
+                            ),
+                          ],
                         ),
                       ),
                     );

@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -49,15 +50,18 @@ class SubmitButton extends StatelessWidget {
       onTap: () async {
         if (_formKey.currentState!.validate()) {
           if (_intoImageLink.value != null || imageLink != null) {
-            context.read<EditCourseBloc>().add(ChangeCourse(course: null));
             showLoading(context);
             String? imageLink;
             if (_intoImageLink.value != null) {
-              imageLink = await FireBaseStorage.upladCourseImage(
-                context,
-                file: _intoImageLink.value!,
-                courseId: _courseName.text,
-              );
+              try {
+                imageLink = await FireBaseStorage.upladCourseImage(
+                  context,
+                  file: _intoImageLink.value!,
+                  courseId: '${_courseName.text}2',
+                );
+              } catch (e) {
+                log(e.toString());
+              }
             }
             MyCourse course = MyCourse(
               courseName: _courseName.text,
@@ -65,12 +69,11 @@ class SubmitButton extends StatelessWidget {
               amount: int.parse(_amount.text),
               discount: int.parse(_discount.text),
               introVideo: _introVideo.text,
-              introImageLink: imageLink ?? this.imageLink!,
+              introImageLink: imageLink ?? this.imageLink ?? '',
             );
             try {
               await GetAllCourseDetails.addCourse(
                 course,
-                this.course?.id,
                 context,
               ).then((value) {
                 _courseName.dispose();
@@ -79,11 +82,20 @@ class SubmitButton extends StatelessWidget {
                 _discount.dispose();
                 _intoImageLink.dispose();
                 _intoImageLink.dispose();
-              });
+              }).then(
+                (value) => mySnakbar(
+                  context,
+                  '${this.course != null ? "Updated" : "Added"} the course',
+                ),
+              );
             } catch (_) {}
+            context
+                .read<EditCourseBloc>()
+                .add(ChangeCourse(course: this.course));
+            Navigator.pop(context);
             mySnakbar(
               context,
-              '${this.course != null ? "Updated" : "Added"} the course',
+              this.course == null ? 'Course added' : 'Save changes',
             );
           }
         }

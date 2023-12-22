@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class AddLevelScreen extends StatelessWidget {
   late String courseName;
-  final QueryDocumentSnapshot<Object?> course;
+  final DocumentSnapshot<Object?> course;
   final QueryDocumentSnapshot<Object?>? level;
   late TextEditingController levelName;
   late TextEditingController levelNo;

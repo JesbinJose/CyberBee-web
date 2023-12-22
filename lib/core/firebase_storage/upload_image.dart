@@ -6,7 +6,6 @@ class FireBaseStorage {
     final context, {
     required Uint8List file,
     required String courseId,
-    
   }) async {
     try {
       final storageRef =

@@ -1,7 +1,7 @@
 part of 'edit_course_bloc.dart';
 
 abstract class EditCourseState {
-  final QueryDocumentSnapshot? course;
+  final DocumentSnapshot? course;
   final CourseEditType first;
   final CourseEditType second;
   final QueryDocumentSnapshot? level;

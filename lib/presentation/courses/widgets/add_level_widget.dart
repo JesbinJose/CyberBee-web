@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cyberbee_web/application/bloc/course/edit_course/edit_course_bloc.dart';
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/course_models.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddLevelWidget extends StatelessWidget {
   const AddLevelWidget({
@@ -12,8 +15,10 @@ class AddLevelWidget extends StatelessWidget {
     required this.levelNo,
     required this.courseName,
     required this.isEdit,
+    required this.course,
   });
 
+  final DocumentSnapshot course;
   final TextEditingController levelName;
   final TextEditingController levelNo;
   final String courseName;
@@ -71,6 +76,14 @@ class AddLevelWidget extends StatelessWidget {
               );
               levelName.text = "";
               levelNo.text = "";
+              context.read<EditCourseBloc>().add(
+                    ChangeEditType(
+                      first: CourseEditType.level,
+                      second: CourseEditType.part,
+                      course: course,
+                      level: null,
+                    ),
+                  );
               GetAllCourseDetails.addLevel(level);
             },
             content: isEdit ? 'Save' : 'Add Level',

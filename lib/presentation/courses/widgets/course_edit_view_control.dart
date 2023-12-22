@@ -18,7 +18,7 @@ class CourseEditView extends StatelessWidget {
     courseId = course?.id;
     levelNo = level?.id;
   }
-  final QueryDocumentSnapshot<Object?>? course;
+  final DocumentSnapshot<Object?>? course;
   final QueryDocumentSnapshot<Object?>? level;
   final CourseEditType type;
   late String? courseId;

@@ -24,14 +24,8 @@ class GetAllCourseDetails {
 
   static Future<void> addCourse(
     MyCourse course,
-    String? oldCourseName,
     BuildContext context,
   ) async {
-    if (oldCourseName != null) {
-      try {
-        deleteCourse(oldCourseName);
-      } catch (_) {}
-    }
     Map<String, dynamic> data = {
       'description': course.description,
       'amount': course.amount,
@@ -40,8 +34,11 @@ class GetAllCourseDetails {
       'intro_image': course.introImageLink,
       'levels_number': course.levelsNumber,
     };
-    _instance.doc(course.courseName).set(data);
-    Navigator.pop(context);
+    try {
+      _instance.doc(course.courseName).set(data);
+    } catch (e) {
+      throw e.toString();
+    }
   }
 
   static Stream<QuerySnapshot> getAllLevels(String courseName) {
