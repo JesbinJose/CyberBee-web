@@ -51,6 +51,12 @@ class AddPartToLevelInputScreen extends StatelessWidget {
             CustomTextFormField(
               controller: _partName,
               hintText: 'Enter the name of the part',
+              validator: (v) {
+                if (v == null || v.isEmpty) {
+                  return 'Name is required';
+                }
+                return null;
+              },
             ),
             const SizedBox(
               height: 10,
@@ -58,6 +64,13 @@ class AddPartToLevelInputScreen extends StatelessWidget {
             CustomTextFormField(
               controller: _partNo,
               hintText: 'Enter the Number in order of the part',
+              isNumOnly: true,
+              validator: (v) {
+                if (v == null || v.isEmpty) {
+                  return 'Part Number is required';
+                }
+                return null;
+              },
             ),
             const SizedBox(
               height: 10,
@@ -65,6 +78,12 @@ class AddPartToLevelInputScreen extends StatelessWidget {
             CustomTextFormField(
               controller: _description,
               hintText: 'Description',
+              validator: (v) {
+                if (v == null || v.isEmpty) {
+                  return 'Description is required';
+                }
+                return null;
+              },
             ),
             const SizedBox(
               height: 10,

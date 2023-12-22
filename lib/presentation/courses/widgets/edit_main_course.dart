@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/delete_course.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/pick_image_control.dart';
 import 'package:cyberbee_web/presentation/courses/widgets/submit_button.dart';
@@ -76,6 +77,10 @@ class AddCourseScreen extends StatelessWidget {
                   if (v == null || v.isEmpty) {
                     return 'Amount is required';
                   }
+                  final value = int.parse(v);
+                  if (value < 0) {
+                    return 'Amount must be greater than 1';
+                  }
                   return null;
                 },
               ),
@@ -87,7 +92,11 @@ class AddCourseScreen extends StatelessWidget {
                 inputType: TextInputType.number,
                 validator: (v) {
                   if (v == null || v.isEmpty) {
-                    return 'Amount is required';
+                    return 'Discount is required';
+                  }
+                  final value = int.parse(v);
+                  if (value < -1 || value > 101) {
+                    return 'Write the discount in percentage';
                   }
                   return null;
                 },
@@ -98,7 +107,9 @@ class AddCourseScreen extends StatelessWidget {
                 hintText: 'Intro Video Link',
                 validator: (v) {
                   if (v == null || v.isEmpty) {
-                    return 'Amount is required';
+                    return 'Video Link is required';
+                  } else if (!RegExp(ytlinkVal).hasMatch(v)) {
+                    return 'Invalid link';
                   }
                   return null;
                 },
@@ -108,7 +119,7 @@ class AddCourseScreen extends StatelessWidget {
                 intoImageLink: _intoImageLink,
                 urlImageLink: imageLink,
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               SubmitButton(
                 formKey: _formKey,
                 intoImageLink: _intoImageLink,

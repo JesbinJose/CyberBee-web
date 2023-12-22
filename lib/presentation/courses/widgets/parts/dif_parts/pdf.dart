@@ -1,3 +1,4 @@
+import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/course_models.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
@@ -28,6 +29,15 @@ class PartPdfAddWidget extends StatelessWidget {
         CustomTextFormField(
           controller: _pdf,
           hintText: 'Pdf Link',
+          validator: (v) {
+            if (v == null || v.isEmpty) {
+              return 'Pdf Link is required';
+            }
+            if (RegExp(pdflinkVal).hasMatch(v)) {
+              return 'Not Valid Link Provided';
+            }
+            return null;
+          },
         ),
         const SizedBox(
           height: 60,

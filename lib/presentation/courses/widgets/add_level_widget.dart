@@ -38,6 +38,12 @@ class AddLevelWidget extends StatelessWidget {
           CustomTextFormField(
             controller: levelName,
             hintText: 'Level Name',
+            validator: (v) {
+              if (v == null || v.isEmpty) {
+                return 'Level Name is required';
+              }
+              return null;
+            },
           ),
           const SizedBox(
             height: defaultPadding,
@@ -45,6 +51,13 @@ class AddLevelWidget extends StatelessWidget {
           CustomTextFormField(
             controller: levelNo,
             hintText: 'Level Number',
+            isNumOnly: true,
+            validator: (v) {
+              if (v == null || v.isEmpty) {
+                return 'Level Number is required';
+              }
+              return null;
+            },
           ),
           const SizedBox(
             height: defaultPadding,

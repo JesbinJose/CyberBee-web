@@ -70,3 +70,8 @@ InputDecoration myFormFieldInputDecoration({
   );
 }
 
+// Validation regex
+const ytlinkVal =
+    r'(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:music\.)?youtu(?:\.be\/|be\.com\/)(?:(?:\w+\/)?(?:\w+\/)?|watch\?v=)?([\w\-_]{11})(?:\S+)?';
+const pdflinkVal =
+    r'/^(?:https?:\/\/)?(?:www\.)?(?:drive\.google\.com|docs\.google\.com)\/(?:(?:file\/d\/|u\/\w\/)?\w{14}|(?:open\?id=|view\?usp=sharing&id=)\w{44})(?:\/preview)?(?:\?(?:[\w\-\.]+=[\w\-\.]+&)*[\w\-\.]+=[\w\-\.]+)?(?:\#[\w\-]+)?\.pdf$/i';

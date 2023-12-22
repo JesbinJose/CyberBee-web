@@ -1,3 +1,4 @@
+import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/course_models.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
@@ -26,6 +27,14 @@ class PartVideoAddWidget extends StatelessWidget {
         CustomTextFormField(
           controller: _video,
           hintText: 'Video Link',
+          validator: (v) {
+            if (v == null || v.isEmpty) {
+              return 'Video Link is required';
+            } else if (!RegExp(ytlinkVal).hasMatch(v)) {
+              return 'Invalid link';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 60),
         CustomTextButton(

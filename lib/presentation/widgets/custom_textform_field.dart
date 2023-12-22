@@ -12,12 +12,12 @@ class CustomTextFormField extends StatelessWidget {
     this.minLine,
     this.maxLine = 1,
     this.readOnly = false,
-    this.validator,
+    required this.validator,
     this.isNumOnly = false,
   }) : _courseName = controller;
 
   final String hintText;
-  final Function(String?)? validator;
+  final Function(String?) validator;
   final TextEditingController _courseName;
   final TextInputType inputType;
   final TextInputAction? textInputAction;
@@ -43,7 +43,7 @@ class CustomTextFormField extends StatelessWidget {
         icon: null,
         hintText: hintText,
       ),
-      validator: (v) => validator!(v),
+      validator: (v) => validator(v),
     );
   }
 }
