@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat_models.dart';
@@ -31,17 +33,44 @@ class SingleUserChatScreen extends StatelessWidget {
                     stream: ChatControls().getMessages(v),
                     builder: (context, snapshot) {
                       if (snapshot.data == null) return const SizedBox();
+                      final messages = snapshot.data!.docs.reversed.toList();
                       return ListView.separated(
                         reverse: true,
                         controller: ScrollController(),
                         padding: const EdgeInsets.only(bottom: 80),
                         itemBuilder: (context, index) {
                           final Message message = Message.fromMap(
-                            snapshot.data!.docs.reversed.toList()[index],
+                            messages[index],
                           );
-                          return SingleMessageTile(
-                            isuser: message.touserId != 'true',
-                            message: message,
+                          String? date;
+                          if (index > 0) {
+                            date = getDate(
+                              message.dateAndTime,
+                              Message.fromMap(
+                                messages[index - 1],
+                              ).dateAndTime,
+                              index == messages.length - 1,
+                            );
+                          }
+                          return Column(
+                            children: [
+                              if (date != null)
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.black,
+                                    ),
+                                    child: Text(date),
+                                  ),
+                                ),
+                              SingleMessageTile(
+                                isuser: message.touserId != 'true',
+                                message: message,
+                              ),
+                            ],
                           );
                         },
                         separatorBuilder: (context, index) {
@@ -56,8 +85,7 @@ class SingleUserChatScreen extends StatelessWidget {
                 },
               ),
             ),
-            if(Responsive.isMobile(context))
-            ChatBackButton(chats: chats),
+            if (Responsive.isMobile(context)) ChatBackButton(chats: chats),
             ValueListenableBuilder(
               valueListenable: chats,
               builder: (context, v, _) {
@@ -83,5 +111,22 @@ class SingleUserChatScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String? getDate(DateTime date, DateTime old, bool isLast) {
+    DateFormat format = DateFormat("MMMM dd, yyyy");
+    if (isLast) return format.format(date);
+    final int diff = date.difference(old).inDays;
+    if (diff != 0) {
+      final int datediff = old.difference(DateTime.now()).inDays;
+      if (datediff == 0) {
+        return 'Today';
+      } else if (datediff == 1) {
+        return 'Yesterday';
+      } else {
+        return format.format(date);
+      }
+    }
+    return null;
   }
 }
