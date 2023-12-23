@@ -44,11 +44,14 @@ class SingleChatWidget extends StatelessWidget {
                 }
                 return Column(
                   children: [
-                    if (date != null) MessageDateTile(date: date),
+                    if (date != null && index == messages.length - 1)
+                      MessageDateTile(date: date),
                     SingleMessageTile(
                       isuser: message.touserId != 'true',
                       message: message,
                     ),
+                    if (date != null && index != messages.length - 1)
+                      MessageDateTile(date: date),
                   ],
                 );
               },
