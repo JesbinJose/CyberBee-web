@@ -14,6 +14,7 @@ class CustomTextFormField extends StatelessWidget {
     this.readOnly = false,
     required this.validator,
     this.isNumOnly = false,
+    this.maxLength,
   }) : _courseName = controller;
 
   final String hintText;
@@ -25,10 +26,12 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLine;
   final bool readOnly;
   final bool isNumOnly;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: maxLength,
       readOnly: readOnly,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       minLines: minLine,
