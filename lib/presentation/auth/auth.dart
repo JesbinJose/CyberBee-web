@@ -1,11 +1,8 @@
-import 'package:cyberbee_web/constants.dart';
-import 'package:cyberbee_web/core/firebase_auth/firebase_auth.dart';
-import 'package:cyberbee_web/presentation/main/main_screen.dart';
-import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
+import 'package:cyberbee_web/presentation/auth/widgets/login_button.dart';
+import 'package:cyberbee_web/presentation/auth/widgets/otp_part.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
 import 'package:cyberbee_web/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -53,58 +50,8 @@ class LoginScreen extends StatelessWidget {
                       }
                     },
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 200,
-                        child: CustomTextFormField(
-                          maxLength: 6,
-                          controller: _otp,
-                          hintText: 'Otp',
-                          validator: (p0) {
-                            if (p0 == null || p0.isEmpty || p0.length != 6) {
-                              return 'Wrong OTP';
-                            }
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5, right: 20),
-                        child: CustomTextButton(
-                          onTap: () {
-                            MyFirebaseAuth.signInWithPhoneNumber(
-                              context,
-                              _phoneNumber.text,
-                            );
-                          },
-                          content: 'Send otp',
-                        ),
-                      ),
-                    ],
-                  ),
-                  CustomTextButton(
-                    onTap: () {
-                      MyFirebaseAuth.verifyOTP(
-                        smsCode: _otp.text,
-                        context: context,
-                      ).then((value) {
-                        if (value.isNotEmpty) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MultiBlocProvider(
-                                providers: providers,
-                                child: MainScreen(),
-                              ),
-                            ),
-                          );
-                        }
-                      });
-                    },
-                    content: 'Login',
-                  ),
+                  OtpPartAuth(otp: _otp, phoneNumber: _phoneNumber),
+                  LoginButtonAuth(otp: _otp),
                 ],
               ),
             ),
