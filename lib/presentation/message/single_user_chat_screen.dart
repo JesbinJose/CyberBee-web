@@ -1,6 +1,7 @@
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat.dart';
 import 'package:cyberbee_web/core/firebase/chat/chat_models.dart';
+import 'package:cyberbee_web/presentation/message/widgets/chat_back_button.dart';
 import 'package:cyberbee_web/presentation/message/widgets/message_send_part.dart';
 import 'package:cyberbee_web/presentation/message/widgets/message_tile.dart';
 import 'package:cyberbee_web/responsive.dart';
@@ -80,35 +81,6 @@ class SingleUserChatScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ChatBackButton extends StatelessWidget {
-  const ChatBackButton({
-    super.key,
-    required this.chats,
-  });
-
-  final ValueNotifier<String?> chats;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: double.infinity,
-      color: secondaryColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          IconButton(
-            onPressed: () {
-              chats.value = null;
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-        ],
       ),
     );
   }

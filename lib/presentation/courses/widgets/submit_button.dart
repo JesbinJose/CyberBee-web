@@ -82,12 +82,7 @@ class SubmitButton extends StatelessWidget {
                 _discount.dispose();
                 _intoImageLink.dispose();
                 _intoImageLink.dispose();
-              }).then(
-                (value) => mySnakbar(
-                  context,
-                  '${this.course != null ? "Updated" : "Added"} the course',
-                ),
-              );
+              });
             } catch (_) {}
             context
                 .read<EditCourseBloc>()
