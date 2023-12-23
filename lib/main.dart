@@ -1,10 +1,9 @@
 import 'package:cyberbee_web/constants.dart';
 import 'package:cyberbee_web/core/firebase/firebase_option/firebase_options.dart';
-import 'package:cyberbee_web/presentation/main/main_screen.dart';
+import 'package:cyberbee_web/presentation/splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -32,10 +31,7 @@ class MyApp extends StatelessWidget {
         ),
         canvasColor: secondaryColor,
       ),
-      home: MultiBlocProvider(
-        providers: providers,
-        child: MainScreen(),
-      ),
+      home: const SplashScreen(),
     );
   }
 }
