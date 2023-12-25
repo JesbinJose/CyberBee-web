@@ -6,7 +6,7 @@ class UserDetailsForAdmin {
       _instance.collection('users');
 
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers() {
-    return _user.snapshots();
+    return _user.where('username', isNotEqualTo: null).snapshots();
   }
 
   static Future<void> deleteUser(String username, String userid) async {

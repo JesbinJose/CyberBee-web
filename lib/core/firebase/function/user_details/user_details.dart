@@ -17,8 +17,9 @@ class UserDetails {
   }
 
   //User Courses
-  Stream<QuerySnapshot<Map<String, dynamic>>> getAllCourseInProgress() {
-    return _user.collection('courses_in_progress').snapshots();
+  Future<List> getAllCourseInProgress()async {
+    final r = await  _user.get();
+    return r.data()!['courses'] as List;
   }
 
   Future<double> getProgress() async {

@@ -49,12 +49,12 @@ class SingleUserScreen extends StatelessWidget {
               title: 'Username',
               subtitle: user['username'],
             ),
-            StreamBuilder(
-              stream: UserDetails(userId: user.id).getAllCourseInProgress(),
+            FutureBuilder(
+              future: UserDetails(userId: user.id).getAllCourseInProgress(),
               builder: (context, snapshot) {
                 final List<String> courses = [];
                 if (snapshot.data != null) {
-                  for (var corse in snapshot.data!.docs) {
+                  for (var corse in snapshot.data!) {
                     courses.add(corse.id);
                   }
                 }

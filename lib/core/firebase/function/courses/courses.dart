@@ -18,10 +18,6 @@ class GetAllCourseDetails {
     return _instance.doc(courseId).snapshots();
   }
 
-  static Future<QueryDocumentSnapshot<Object?>> getACourse() async {
-    return (await _instance.get()).docs[2];
-  }
-
   static Future<void> addCourse(
     MyCourse course,
     BuildContext context,
