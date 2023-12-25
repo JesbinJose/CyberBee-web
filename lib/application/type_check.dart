@@ -15,16 +15,16 @@ String typeName(UserType user) {
   }
 }
 
-Future<List<QueryDocumentSnapshot<Object?>>> getUserFunction(
-    UserType type) async {
+Stream<QuerySnapshot<Map<String, dynamic>>> getUserFunction(
+    UserType type) {
   switch (type) {
     case UserType.student:
-      return await UserDetailsForAdmin.getAllStudents();
+      return  UserDetailsForAdmin.getAllStudents();
     case UserType.tutor:
-      return await UserDetailsForAdmin.getAllTutor();
+      return UserDetailsForAdmin.getAllTutor();
     case UserType.admin:
-      return await UserDetailsForAdmin.getAllAdmin();
+      return UserDetailsForAdmin.getAllAdmin();
     default:
-      return await UserDetailsForAdmin.getAllUsers();
+      return UserDetailsForAdmin.getAllUsers();
   }
 }

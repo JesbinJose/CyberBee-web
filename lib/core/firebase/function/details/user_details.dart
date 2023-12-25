@@ -5,8 +5,8 @@ class UserDetailsForAdmin {
   static final CollectionReference<Map<String, dynamic>> _user =
       _instance.collection('users');
 
-  static Future<List<QueryDocumentSnapshot<Object?>>> getAllUsers() async {
-    return (await _user.get()).docs;
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers() {
+    return _user.snapshots();
   }
 
   static Future<void> deleteUser(String username, String userid) async {
@@ -25,36 +25,18 @@ class UserDetailsForAdmin {
     });
   }
 
-  static Future<List<QueryDocumentSnapshot<Object?>>> getAllStudents() async {
-    final QuerySnapshot users = await _user.get();
-    List<QueryDocumentSnapshot<Object?>> list = [];
-    for (var user in users.docs) {
-      if (!user['isAdmin'] && !user['isTutor']) {
-        list.add(user);
-      }
-    }
-    return list;
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllStudents() {
+    return _user
+        .where('isAdmin', isEqualTo: false)
+        .where('isTutor', isEqualTo: false)
+        .snapshots();
   }
 
-  static Future<List<QueryDocumentSnapshot<Object?>>> getAllAdmin() async {
-    final QuerySnapshot users = await _user.get();
-    List<QueryDocumentSnapshot<Object?>> list = [];
-    for (var user in users.docs) {
-      if (user['isAdmin']) {
-        list.add(user);
-      }
-    }
-    return list;
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllAdmin() {
+    return _user.where('isAdmin', isEqualTo: true).snapshots();
   }
 
-  static Future<List<QueryDocumentSnapshot<Object?>>> getAllTutor() async {
-    final QuerySnapshot users = await _user.get();
-    List<QueryDocumentSnapshot<Object?>> list = [];
-    for (var user in users.docs) {
-      if (user['isTutor']) {
-        list.add(user);
-      }
-    }
-    return list;
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllTutor() {
+    return _user.where('isTutor', isEqualTo: true).snapshots();
   }
 }

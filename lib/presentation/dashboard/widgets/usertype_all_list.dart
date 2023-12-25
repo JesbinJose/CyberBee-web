@@ -28,14 +28,15 @@ class ShowUsersByTypeWidget extends StatelessWidget {
           ),
         ),
       ),
-      child: FutureBuilder(
-        future: getUserFunction(type),
+      child: StreamBuilder(
+        stream: getUserFunction(type),
         builder: (context, snapshot) {
-          if (snapshot.data == null) return const SizedBox();
+          if (snapshot.data == null) return const Center(child: Text('Some Error occured'),);
+          if (snapshot.data!.docs.isEmpty) return const Center(child: Text('No Users'),);
           return ListView.builder(
-            itemCount: snapshot.data!.length,
+            itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
-              final user = snapshot.data![index];
+              final user = snapshot.data!.docs[index];
               return ListTile(
                 onTap: () => context.read<ManageSingleUserDashBoardBloc>().add(
                       ChangeUser(

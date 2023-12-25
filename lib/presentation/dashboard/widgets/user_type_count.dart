@@ -30,8 +30,8 @@ class CustomUserTypeCountWidget extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           final UserType type = UserType.values[index];
-          return FutureBuilder(
-            future: getUserFunction(type),
+          return StreamBuilder(
+            stream: getUserFunction(type),
             builder: (context, snapshot) {
               return CustomTopViewContainer(
                 onTap: () => context.read<DashBoardSelectedTypeBloc>().add(
@@ -41,7 +41,7 @@ class CustomUserTypeCountWidget extends StatelessWidget {
                     ),
                 child: Center(
                   child: Text(
-                    "${typeName(type)} - ${snapshot.data?.length ?? 0}",
+                    "${typeName(type)} - ${snapshot.data?.docs.length ?? 0}",
                     style: const TextStyle(
                       fontSize: 23,
                     ),

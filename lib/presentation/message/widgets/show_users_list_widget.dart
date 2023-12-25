@@ -14,14 +14,14 @@ class ShowUsersChatWidget extends StatelessWidget {
     return Expanded(
       flex: 7,
       child: SizedBox(
-        child: FutureBuilder(
-          future: UserDetailsForAdmin.getAllUsers(),
+        child: StreamBuilder(
+          stream: UserDetailsForAdmin.getAllUsers(),
           builder: (context, snapshot) {
             if (snapshot.data != null) {
               return ListView.builder(
-                itemCount: snapshot.data!.length,
+                itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
-                  final user = snapshot.data![index];
+                  final user = snapshot.data!.docs[index];
                   return Container(
                     width: double.infinity,
                     height: 60,

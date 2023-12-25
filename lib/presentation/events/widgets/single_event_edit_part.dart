@@ -6,6 +6,7 @@ import 'package:cyberbee_web/core/firebase/function/events/events.dart';
 import 'package:cyberbee_web/presentation/events/widgets/event_manage_control.dart';
 import 'package:cyberbee_web/presentation/events/widgets/show_image_preview.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
+import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
 import 'package:flutter/material.dart';
 
 class SingleEventEdit extends StatelessWidget {
@@ -46,12 +47,15 @@ class SingleEventEdit extends StatelessWidget {
                   value: value,
                   image: image,
                 ),
-                TextField(
+                CustomTextFormField(
                   controller: controller,
-                  decoration: myFormFieldInputDecoration(
-                    icon: null,
-                    hintText: 'link',
-                  ),
+                  hintText: 'Link',
+                  validator: (v) {
+                    if (v == null || v.isEmpty) return 'Please enter a link';
+                    if (!RegExp(validUrl).hasMatch(v)) {
+                      return 'Please enter a valid link';
+                    }
+                  },
                 ),
                 SaveAndImageControls(
                   image: image,
