@@ -56,6 +56,7 @@ class SaveAndImageControls extends StatelessWidget {
             await SendPushNotification().sendAllNotification(
               'New Event',
               'There is a new event , Check out',
+              controller.text,
             );
           },
           content: event.value == null ? 'Add' : 'Save',

@@ -17,8 +17,8 @@ class UserDetails {
   }
 
   //User Courses
-  Future<List> getAllCourseInProgress()async {
-    final r = await  _user.get();
+  Future<List> getAllCourseInProgress() async {
+    final r = await _user.get();
     return r.data()!['courses'] as List;
   }
 
@@ -37,5 +37,17 @@ class UserDetails {
 
   Future<String> getProfilePicLink() async {
     return (await _user.get()).data()!['profile_pic'];
+  }
+
+  Future<void> sendPersonalNotification(String message, String url) async {
+    _user.update(
+      {
+        'notification': FieldValue.arrayUnion(
+          [
+            {'message': message, 'url': url}
+          ],
+        ),
+      },
+    );
   }
 }
