@@ -7,6 +7,7 @@ import 'package:cyberbee_web/presentation/events/widgets/event_manage_control.da
 import 'package:cyberbee_web/presentation/events/widgets/show_image_preview.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_textform_field.dart';
+import 'package:cyberbee_web/presentation/widgets/show_snakbar.dart';
 import 'package:flutter/material.dart';
 
 class SingleEventEdit extends StatelessWidget {
@@ -65,7 +66,14 @@ class SingleEventEdit extends StatelessWidget {
                 if (event.value != null)
                   CustomTextButton(
                     onTap: () async {
-                      MyFirebaseEvents.removeEvent(event.value!.id);
+                      await MyFirebaseEvents.removeEvent(event.value!.id).then(
+                        (value) {
+                          mySnakbar(
+                            context,
+                            'Event Deleted',
+                          );
+                        },
+                      );
                       event.value = null;
                     },
                     content: 'Delete',
