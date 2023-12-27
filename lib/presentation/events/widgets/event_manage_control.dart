@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/application/image/pick_image.dart';
 import 'package:cyberbee_web/core/firebase/function/events/events.dart';
 import 'package:cyberbee_web/core/firebase/function/message/send_message.dart';
+import 'package:cyberbee_web/presentation/widgets/custom_loading.dart';
 import 'package:cyberbee_web/presentation/widgets/custom_text_button.dart';
+import 'package:cyberbee_web/presentation/widgets/show_snakbar.dart';
 import 'package:flutter/material.dart';
 
 class SaveAndImageControls extends StatelessWidget {
@@ -38,26 +40,37 @@ class SaveAndImageControls extends StatelessWidget {
         CustomTextButton(
           onTap: () async {
             if (image.value != null && controller.text.isNotEmpty) {
+              showLoading(context);
               if (event.value == null) {
-                MyFirebaseEvents.addEvent(
+                await MyFirebaseEvents.addEvent(
                   image.value!,
                   controller.text,
                   context,
-                );
+                ).then((value) => Navigator.pop(context));
               } else {
-                MyFirebaseEvents.updateEvent(
+                await MyFirebaseEvents.updateEvent(
                   image.value!,
                   controller.text,
                   context,
                   event.value!.id,
-                );
+                ).then((value) => Navigator.pop(context));
               }
+              // ignore: use_build_context_synchronously
+              mySnakbar(
+                context,
+                'Event ${event.value != null ? 'updated' : 'Added'}',
+              );
+            } else {
+              mySnakbar(context, 'Problem With the Inputs');
+              return;
             }
-            await SendPushNotification().sendAllNotification(
+            image.value = null;
+            SendPushNotification().sendAllNotification(
               'New Event',
               'There is a new event , Check out',
               controller.text,
             );
+            controller.clear();
           },
           content: event.value == null ? 'Add' : 'Save',
         ),

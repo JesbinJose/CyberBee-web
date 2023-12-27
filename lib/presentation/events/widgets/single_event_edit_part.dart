@@ -51,7 +51,7 @@ class SingleEventEdit extends StatelessWidget {
                   controller: controller,
                   hintText: 'Link',
                   validator: (v) {
-                    if (v == null || v.isEmpty) return 'Please enter a link';
+                    if (v == null || v.isEmpty) return null;
                     if (!RegExp(validUrl).hasMatch(v)) {
                       return 'Please enter a valid link';
                     }
