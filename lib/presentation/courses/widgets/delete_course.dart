@@ -1,7 +1,7 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyberbee_web/application/bloc/course/edit_course/edit_course_bloc.dart';
 import 'package:cyberbee_web/core/firebase/function/courses/courses.dart';
+import 'package:cyberbee_web/presentation/widgets/show_snakbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +29,11 @@ class DeleteCoursePart extends StatelessWidget {
           onPressed: () async {
             GetAllCourseDetails.deleteCourse(
               course!.id,
+            ).then(
+              (value) => mySnakbar(
+                context,
+                'Course deleted',
+              ),
             );
             context.read<EditCourseBloc>().add(
                   ChangeCourse(course: null),
