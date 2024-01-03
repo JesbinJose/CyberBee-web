@@ -31,8 +31,16 @@ class ShowUsersByTypeWidget extends StatelessWidget {
       child: StreamBuilder(
         stream: getUserFunction(type),
         builder: (context, snapshot) {
-          if (snapshot.data == null) return const Center(child: Text('Some Error occured'),);
-          if (snapshot.data!.docs.isEmpty) return const Center(child: Text('No Users'),);
+          if (snapshot.data == null) {
+            return const Center(
+              child: Text('Some Error occured'),
+            );
+          }
+          if (snapshot.data!.docs.isEmpty) {
+            return const Center(
+              child: Text('No Users',),
+            );
+          }
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
@@ -43,7 +51,9 @@ class ShowUsersByTypeWidget extends StatelessWidget {
                         user: user,
                       ),
                     ),
-                leading: CircleProfileView(profileUrl: user['profile_pic']),
+                leading: CircleProfileView(
+                  profileUrl: user['profile_pic'],
+                ),
                 title: Text(
                   user['username'],
                 ),
